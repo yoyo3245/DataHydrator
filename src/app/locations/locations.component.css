@@ -1,0 +1,35 @@
+.locations-list {
+    list-style-position: inside; /* Ensures bullets are inside the list items */
+    text-align: center; /* Centers the list items */
+    color: white;
+  }
+  
+  .button-container {
+    position: absolute;
+    top: 30px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+  }
+
+  .back-button {
+    background-color: white; /* White background */
+    color: black; /* Text color */
+    padding: 10px 20px; /* Padding for button */
+    border: none; /* Remove border */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+    outline: none; /* Remove outline on focus */
+    font-weight: bold; /* Optional: Make text bold */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+  }
+
+
+  .locations-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .locations-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    color: white;
+  }

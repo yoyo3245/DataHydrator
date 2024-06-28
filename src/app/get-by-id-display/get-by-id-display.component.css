@@ -1,0 +1,49 @@
+.button-container {
+    position: absolute;
+    top: 30px; 
+    left: 10px; 
+  }
+
+  .back-button {
+    background-color: white; 
+    color: black; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer;
+    outline: none; 
+    font-weight: bold; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .list {
+    list-style-position: inside; 
+    text-align: center; 
+    color: white;
+  }
+
+  .submit-button {
+    background-color: white; 
+    color: black; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none; 
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    margin-left: 10px;
+  }
+
+  .input-box {
+    border:none;
+    border-radius: 5px;
+    outline: none;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  /* .mat-mdc-stroked-button {
+    border-color: white !important;
+  } */
+  
+  

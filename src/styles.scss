@@ -1,0 +1,90 @@
+// @import '~@angular/material/theming';
+
+// // Define your dark theme
+// $dark-primary: mat-palette($mat-indigo);
+// $dark-accent: mat-palette($mat-pink, A200, A100, A400);
+// $dark-theme: mat-dark-theme($dark-primary, $dark-accent);
+
+// // Include Angular Material pre-built themes
+// @include mat-core();
+// @include angular-material-theme($dark-theme);
+// // Your other styles and imports below
+
+
+@use '@angular/material' as mat;
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme-light: mat.m2-define-light-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$violet-palette,
+  ),
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
+  ),
+  density: (
+    scale: -1
+  )
+));
+
+$my-theme-dark: mat.m2-define-dark-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$violet-palette,
+  ),
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
+  ),
+  density: (
+    scale: -1
+  )
+));
+
+.theme-dark {
+  @include mat.all-componant-colors($my-theme-dark)
+}
+
+.theme-light {
+  @include mat.all-componant-colors($my-theme-light)
+}
+
+
+
+
+
+
+  html, body { 
+    height: 100%; 
+    background-color: #191b1e;
+  } 
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: white !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after {
+  border-bottom-color: white !important;
+}
+
+.input-text {
+  color: grey !important
+}
+
+.custom-outline {
+  border-color: rgb(71, 71, 71) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-input-element {
+    color: white !important;
+}
+  

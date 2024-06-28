@@ -1,0 +1,47 @@
+<!-- <div class="button-container">
+    <button mat-stroked-button routerLink="/home" >Back</button>
+</div> -->
+<!-- <h1 style="margin-top: 30px; color: white">Data Hydrator</h1> -->
+ 
+<div style="margin-top: 50px;">
+    <!-- <h2 style="color: white">Enter Name Format</h2> -->
+
+    <div style="margin-bottom: 10px;">
+        <mat-form-field appearence="fill" style="width: 30%;" class="transparent-form-field">
+          <mat-label class="input-text">Enter name format</mat-label>
+          <input matInput [(ngModel)]="nameFormat">
+        </mat-form-field>
+      </div>
+    
+      <div style="margin-bottom: 10px;">
+        <mat-form-field style="width: 30%;">
+          <mat-label class="input-text">Enter number of entries</mat-label>
+          <input matInput [(ngModel)]="entries">
+        </mat-form-field>
+      </div>
+    
+      <div style="margin-bottom: 10px;">
+        <mat-form-field style="width: 30%;">
+          <mat-label class="input-text">Enter child depth</mat-label>
+          <input matInput [(ngModel)]="childDepth">
+        </mat-form-field>
+      </div>
+    
+    <!-- <input matNativeControl type="text" [(ngModel)]="nameFormat" placeholder="Enter name format" style="width: 500px; "> -->
+
+    <!-- <h2 style="color: white; margin-top: 20px;">Enter Number of Enteries to Create</h2>
+    <input matNativeControl type="text" [(ngModel)]="entries" placeholder="Enter number of enteries" style="width: 500px;">
+
+    <h2 style="color: white; margin-top: 20px;">Enter Child Depth</h2>
+    <input matNativeControl type="text" [(ngModel)]="childDepth" placeholder="Enter child depth" style="width: 500px;"> -->
+</div>
+
+<button mat-stroked-button class="custom-outline" (click)="hydrator()" style="margin-top: 20px; color: white;">Submit</button>
+
+<div *ngIf="errorMessage" style="color: red;">
+    <h2 style="margin-top: 20px;"> {{ errorMessage }} </h2>
+</div>
+
+<div *ngIf="successMessage" style="color: green;">
+    <h2 style="margin-top: 20px;"> {{ successMessage }} </h2>
+</div>
