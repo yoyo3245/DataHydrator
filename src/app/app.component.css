@@ -1,0 +1,19 @@
+.centered-text {
+    text-align: center; /* Center-align text */
+  }
+  
+.highlighted-text {
+  display: inline-block; /* Display as block element */
+  background-color: #007bff; /* Background color for highlight */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding around text */
+  border-radius: 20px; /* Rounded corners */
+  margin-top: 20px; /* Add margin-top to create space above the text */
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+.dark-theme {
+  background-color: #343a40; /* Dark background color */
+  color: #ffffff; /* Text color for dark theme */
+}
