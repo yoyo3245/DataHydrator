@@ -1,0 +1,134 @@
+// Import Angular Material theming utilities
+@use '@angular/material' as mat;
+
+// Define custom palettes
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+// Define light theme
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Define dark theme
+$my-theme-dark: mat.define-dark-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Apply themes to classes
+.theme-dark {
+  background-color: #191b1e;
+  --text-color: white;
+  @include mat.all-component-themes($my-theme-dark);
+  // @include mat.core-theme($my-theme-dark);
+}
+
+.theme-light {
+  --text-color: black;
+  @include mat.all-component-colors($my-theme);
+}
+
+[data-theme="dark"] {
+  --text-color: #ffffff;
+  --background-color: #191b1e;
+  --navbar-text-color: #ffffff;
+  --navbar-background-color: rgba(25, 27, 30, 0.8); // Semi-transparent dark
+  @include mat.all-component-colors($my-theme-dark);
+}
+
+[data-theme="light"] {
+  --text-color: #000000;
+  --background-color: #ffffff;
+  @include mat.all-component-colors($my-theme);
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: var(--navbar-background-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-brand {
+  color: var(--navbar-text-color) !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-toggler-icon {
+  background-image: none !important;
+  background-color: var(--navbar-text-color);
+  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  transition: background-color 0.3s ease;
+}
+
+
+// Additional component-specific styling
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
+
+.mat-mdc-slide-toggle.mat-accent{
+  --mdc-switch-selected-track-color: lightgray !important;
+  --mdc-switch-selected-focus-state-layer-color: lightgray !important;
+  --mdc-switch-selected-hover-state-layer-color: lightgray !important;
+  --mdc-switch-selected-pressed-state-layer-color: lightgray !important;
+  --mdc-switch-selected-focus-track-color: lightgray !important;
+  --mdc-switch-selected-hover-track-color: lightgray !important;
+  --mdc-switch-selected-pressed-track-color: lightgray !important;
+
+  --mdc-switch-selected-handle-color: white !important;
+  --mdc-switch-selected-focus-handle-color: white !important;
+  --mdc-switch-selected-hover-handle-color: white !important;
+  --mdc-switch-selected-pressed-handle-color: white !important;
+}
+.mat-mdc-slide-toggle{
+  --mdc-switch-unselected-icon-color: white !important;
+  --mdc-switch-unselected-handle-color: white !important;
+}
+
+
+.spinner {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #ff0066;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Use viewport height to ensure full screen coverage */     
+}

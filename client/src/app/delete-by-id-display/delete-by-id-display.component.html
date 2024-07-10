@@ -1,0 +1,24 @@
+<!-- <div class="button-container">
+    <button mat-stroked-button routerLink="/home">Back</button>
+</div> -->
+
+<div style="margin-top: 30px;">
+    <h2 style="color: primary">Enter a Valid ID to Delete</h2>
+
+    <div style="margin-bottom: 10px;">
+        <mat-form-field style="width: 30%;">
+          <mat-label class="input-text">Enter ID</mat-label>
+          <input matInput [(ngModel)]="id">
+        </mat-form-field>
+      </div>
+    <!-- <input matNativeControl type="text" [(ngModel)]="id" placeholder="Enter ID" style="width: 500px;"> -->
+    <button mat-stroked-button class="custom-outline" style="margin-left: 10px;" (click)="deleteData()">Submit</button>
+</div>
+
+<div *ngIf="errorMessage" style="color: red;">
+    <h2 style="margin-top: 20px;"> {{ errorMessage }} </h2>
+</div>
+
+<div *ngIf="location" style="color: green; margin-top: 20px;">
+    <h2>Location ID {{location.id}} has been successfully deleted.</h2>
+</div>
