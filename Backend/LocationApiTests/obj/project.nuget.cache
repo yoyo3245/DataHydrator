@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZlC9XHL1zCg=",
+  "dgSpecHash": "6BS2sL8AcoQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationApiTests\\LocationApiTests.csproj",
+  "projectFilePath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationApiTests\\LocationApiTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\z004yzvw\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",

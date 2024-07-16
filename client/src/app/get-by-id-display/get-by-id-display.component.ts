@@ -18,6 +18,7 @@ export class GetByIdDisplayComponent {
   getData() {
     if (this.id.length === 0) {
       this.errorMessage = 'Bad Request';
+      this.location = null;
       return; 
     }
     this.http.get('http://localhost:5290/api/locations/' + this.id).subscribe({
@@ -26,11 +27,7 @@ export class GetByIdDisplayComponent {
         this.errorMessage = ''; 
       },
       error: (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          this.errorMessage = 'Location Not Found'; 
-        } else {
-          this.errorMessage = 'An Error Occurred'; 
-        }
+        this.errorMessage = 'Location Not Found';
         this.location = null;
         console.error('Error:', error);
       }

@@ -24,11 +24,7 @@ export class DeleteByIdDisplayComponent {
         this.errorMessage = ''; // Clear error message on successful response
       },
       error: (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          this.errorMessage = 'Location Not Found'; // Set error message for 404 Not Found
-        } else {
-          this.errorMessage = 'An Error Occurred'; // Generic error message for other errors
-        }
+        this.errorMessage = 'Location Not Found';
         this.location = null;
         console.error('Error:', error);
       }

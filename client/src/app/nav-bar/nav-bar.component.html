@@ -1,5 +1,9 @@
-<div *ngIf="loaderService.isLoading | async" class="loader-container">
-  <mat-progress-bar mode="determinate" [value]="loaderService.progress | async"></mat-progress-bar>
+<div *ngIf="(loaderService.isLoading | async) && !(loaderService.isHydrator | async)" class="loader-container">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div *ngIf="(loaderService.isLoading | async) && (loaderService.isHydrator | async)" class="loader-container">
+  <mat-progress-bar mode="determinate" [value]="(loaderService.progress | async)"></mat-progress-bar>
 </div>
 
 <div class="container">

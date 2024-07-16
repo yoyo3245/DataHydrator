@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class LocationsComponent implements OnInit {
   locations: any[] = []; // Initialize as an empty array
   loading: boolean = true;
+  displayedColumns: string[] = ['id', 'location_code', 'name', 'description', 'inventory_location', 'region', 'site', 'parent_id']
 
   constructor(private http: HttpClient) {}
   
@@ -22,17 +23,14 @@ export class LocationsComponent implements OnInit {
       next: (event: HttpEvent<any>) => {
         if (event.type === HttpEventType.DownloadProgress) {
         } else if (event instanceof HttpResponse) {
-          this.locations = event.body;
-          this.loading = false;
+          this.locations = event.body; 
         }
       },
       error: (error) => {
-        console.log(error);
-        this.loading = false;
+        console.log(error); 
       },
       complete: () => {
-        console.log('Request has completed');
-        this.loading = false;
+        console.log('Request has completed'); 
       }
     });
   }

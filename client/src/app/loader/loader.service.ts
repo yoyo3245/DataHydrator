@@ -7,8 +7,13 @@ import { BehaviorSubject } from 'rxjs';
 export class LoaderService {
   public isLoading = new BehaviorSubject<boolean>(false);
   public progress = new BehaviorSubject<number>(0);
+  public isHydrator = new BehaviorSubject<boolean>(false); // Initialize with false
 
-  constructor() { }
+  constructor() {}
+
+  setHydrator(isHydrator: boolean) {
+    this.isHydrator.next(isHydrator);
+  }
 
   setLoading(isLoading: boolean) {
     this.isLoading.next(isLoading);

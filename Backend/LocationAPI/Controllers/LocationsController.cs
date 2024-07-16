@@ -56,18 +56,7 @@ namespace LocationAPI.Controllers
             if (allLocations.Count != 0)
             {
                 var json = JsonSerializer.Serialize(allLocations);
-                var contentBytes = System.Text.Encoding.UTF8.GetBytes(json);
-                
-                var contentLength = contentBytes.Length.ToString();
-                Response.Headers.Add("Content-Length", contentLength);
-                
-                // Log the content length
-                //_logger.LogInformation($"Sending response with Content-Length: {contentLength}");
-
-                // For testing purposes, you can add a delay here
-                await Task.Delay(5000); // 2 second delay
-
-                return Content(json, "application/json");
+                return Ok(json);
             }
             else
             {

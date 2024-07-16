@@ -15,7 +15,7 @@ export class CreateLocationDisplayComponent {
   description: string | null = null;
   region: number | null = null;
   site: number | null = null;
-  inventoryLocation: boolean | null = null;
+  inventoryLocation: boolean = false;
   parentId: string | null = null;
 
   constructor(private http: HttpClient) {}

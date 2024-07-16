@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "P2/kBX0XEFA=",
+  "dgSpecHash": "k/Fa9qDk1VU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationAPI\\LocationAPI.csproj",
+  "projectFilePath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\z004yzvw\\.nuget\\packages\\microsoft.aspnetcore\\2.1.7\\microsoft.aspnetcore.2.1.7.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.1.1\\microsoft.aspnetcore.authentication.abstractions.2.1.1.nupkg.sha512",

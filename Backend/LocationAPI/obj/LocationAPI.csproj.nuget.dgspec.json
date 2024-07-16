@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationAPI\\LocationAPI.csproj": {}
+    "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationAPI\\LocationAPI.csproj": {
+    "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationAPI\\LocationAPI.csproj",
+        "projectUniqueName": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationAPI.csproj",
         "projectName": "LocationAPI",
-        "projectPath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationAPI\\LocationAPI.csproj",
+        "projectPath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationAPI.csproj",
         "packagesPath": "C:\\Users\\z004yzvw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationAPI\\client\\Backend\\LocationAPI\\obj\\",
+        "outputPath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
