@@ -1,12 +1,8 @@
-<!-- <div class="button-container">
-  <button mat-stroked-button routerLink="/home" >Back</button>
-</div> -->
-
 <div>
-  <h2 style="margin-top: 30px;">Current Locations</h2>
+  <h2 class="custom-header">Current Locations</h2>
 </div>
 
-<table mat-table [dataSource]="locations" style="background-color: transparent;">
+<table mat-table [dataSource]="dataSource" class="custom-background">
 
   <!-- ID Column -->
   <ng-container matColumnDef="id">
@@ -62,3 +58,11 @@
   <!-- Data Rows -->
   <tr mat-row *matRowDef="let location; columns: displayedColumns;"></tr>
 </table>
+
+<mat-paginator [length]="resultsLength"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 25, 100]"
+               (page)="onPageChange($event)"
+               aria-label="Select page of locations"
+               style="background-color: transparent;">
+</mat-paginator>

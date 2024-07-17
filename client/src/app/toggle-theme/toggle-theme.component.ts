@@ -24,14 +24,13 @@ export class ToggleThemeComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2
-  ) {
-    // Initialize theme from localStorage or default to dark mode
+  ) { 
     this.isDarkTheme = localStorage.getItem('theme') === 'dark';
-    this.applyTheme(); // Apply theme based on initial value from localStorage
+    this.applyTheme();  
   }
 
   toggleTheme(checked: boolean) {
-    this.isDarkTheme = !checked; // Invert checked value for dark mode logic
+    this.isDarkTheme = !checked;  
     this.applyTheme();
     this.saveThemeToStorage();
   }

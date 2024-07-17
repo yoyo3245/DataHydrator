@@ -11,8 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LocationsComponent } from './locations/locations.component';
-import { HomeComponent } from './home/home.component';
+import { LocationsComponent } from './locations/locations.component'; 
 import { GetByIdDisplayComponent } from './get-by-id-display/get-by-id-display.component';
 import { DeleteByIdDisplayComponent } from './delete-by-id-display/delete-by-id-display.component';
 import { CreateLocationDisplayComponent } from './create-location-display/create-location-display.component';
@@ -22,27 +21,25 @@ import { DataHydratorComponent } from './data-hydrator/data-hydrator.component';
 import { ToggleThemeComponent } from './toggle-theme/toggle-theme.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SpinnerComponent } from './spinner/spinner.component';
+import { ReactiveFormsModule } from '@angular/forms'; 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { InterceptorService } from './loader/interceptor.service';
 import { LoaderService } from './loader/loader.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LocationsComponent,
-    HomeComponent,
+    LocationsComponent, 
     GetByIdDisplayComponent,
     DeleteByIdDisplayComponent,
     CreateLocationDisplayComponent,
     UpdateLocationDisplayComponent,
     DataHydratorComponent,
     ToggleThemeComponent,
-    NavBarComponent,
-    SpinnerComponent
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +58,8 @@ import { LoaderService } from './loader/loader.service';
     MatToolbarModule,
     ReactiveFormsModule,
     MatProgressBarModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},

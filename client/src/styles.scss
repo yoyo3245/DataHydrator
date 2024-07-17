@@ -1,12 +1,9 @@
-// Import Angular Material theming utilities
 @use '@angular/material' as mat;
-
-// Define custom palettes
+ 
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
 $my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 $my-warn: mat.define-palette(mat.$red-palette);
-
-// Define light theme
+ 
 $my-theme: mat.define-light-theme((
   color: (
     primary: $my-primary,
@@ -16,8 +13,7 @@ $my-theme: mat.define-light-theme((
   typography: mat.define-typography-config(),
   density: 0,
 ));
-
-// Define dark theme
+ 
 $my-theme-dark: mat.define-dark-theme((
   color: (
     primary: $my-primary,
@@ -27,13 +23,11 @@ $my-theme-dark: mat.define-dark-theme((
   typography: mat.define-typography-config(),
   density: 0,
 ));
-
-// Apply themes to classes
+ 
 .theme-dark {
   background-color: #191b1e;
   --text-color: white;
   @include mat.all-component-themes($my-theme-dark);
-  // @include mat.core-theme($my-theme-dark);
 }
 
 .theme-light {
@@ -45,7 +39,7 @@ $my-theme-dark: mat.define-dark-theme((
   --text-color: #ffffff;
   --background-color: #191b1e;
   --navbar-text-color: #ffffff;
-  --navbar-background-color: rgba(25, 27, 30, 0.8); // Semi-transparent dark
+  --navbar-background-color: rgba(25, 27, 30, 0.8); 
   @include mat.all-component-colors($my-theme-dark);
 }
 
@@ -60,8 +54,7 @@ body {
   background-color: var(--background-color);
   transition: color 0.3s ease, background-color 0.3s ease;
 }
-
-/* Navbar styles */
+ 
 .navbar {
   background-color: var(--navbar-background-color) !important;
   transition: background-color 0.3s ease;
@@ -80,12 +73,9 @@ body {
   transition: background-color 0.3s ease;
 }
 
-
-// Additional component-specific styling
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: transparent !important;
 }
-
 
 .mat-mdc-slide-toggle.mat-accent{
   --mdc-switch-selected-track-color: lightgray !important;
@@ -106,7 +96,6 @@ body {
   --mdc-switch-unselected-handle-color: white !important;
 }
 
-
 .spinner {
   border: 10px solid #f3f3f3;
   border-top: 10px solid #ff0066;
@@ -125,10 +114,9 @@ body {
   }
 }
 
-
 .spinner-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Use viewport height to ensure full screen coverage */     
+  height: 100vh; 
 }

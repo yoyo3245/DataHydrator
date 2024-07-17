@@ -11,9 +11,25 @@
    .nav.navbar-nav.navbar-right li a {
     color: primary;
     }    */
+  .collapse {
+    margin-left: 15%;
+  }
+
+  .navbar-brand {
+    font-size: 25px;
+  }
+
+  .theme-button {
+    margin-left: 55%;
+  }
 
   .navbar-nav {
     margin-left: auto;
+    font-size: 17px;
+  }
+
+  .navbar-background {
+    background-color: transparent;
   }
 
   .nav-item {

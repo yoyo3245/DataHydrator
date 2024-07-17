@@ -1,53 +1,48 @@
-<!-- <div class="button-container">
-    <button mat-stroked-button routerLink="/home" >Back</button>
-</div> -->
-<h2 style="margin-top: 30px;">Enter ID of Location to Update</h2>
+<h2 class="custom-header">Enter ID of Location to Update</h2>
 
-
-
-<mat-form-field appearence="fill" style="width: 30%;">
+<mat-form-field appearence="fill" class="custom-width">
     <mat-label class="input-text">Enter ID</mat-label>
     <input matInput [(ngModel)]="id">
 </mat-form-field>
 
-<div style="margin-top: 40px;">
-    <h2 style=" margin-top: 30px;">Enter Information For Each Atributte of the Location to be Updated</h2>
-    <mat-form-field appearence="fill" style="width: 30%;">
+<div class="text-form">
+    <h2 class="custom-header">Enter Information For Each Atributte of the Location to be Updated</h2>
+    <mat-form-field appearence="fill" class="custom-width">
         <mat-label class="input-text">Enter Location Code</mat-label>
         <input matInput [(ngModel)]="locationCode">
       </mat-form-field>
-      <mat-form-field appearence="fill" style="width: 30%; margin-left: 20px;">
+      <mat-form-field appearence="fill" class="custom-width custom-margin">
         <mat-label class="input-text">Enter Name</mat-label>
         <input matInput [(ngModel)]="name">
       </mat-form-field>
-      <mat-form-field appearence="fill" style="width: 30%; margin-left: 20px;">
+      <mat-form-field appearence="fill" class="custom-width custom-margin">
         <mat-label class="input-text">Enter Description</mat-label>
         <input matInput [(ngModel)]="description">
       </mat-form-field>
-      <mat-form-field appearence="fill" style="width: 30%;">
+      <mat-form-field appearence="fill" class="custom-width">
         <mat-label class="input-text">Enter Region</mat-label>
         <input matInput [(ngModel)]="region">
       </mat-form-field>
-      <mat-form-field appearence="fill" style="width: 30%; margin-left: 20px;">
+      <mat-form-field appearence="fill" class="custom-width custom-margin">
         <mat-label class="input-text">Enter Site</mat-label>
         <input matInput [(ngModel)]="site">
       </mat-form-field>
-      <mat-form-field appearence="fill" style="width: 30%; margin-left: 20px;">
+      <mat-form-field appearence="fill" class="custom-width custom-margin">
         <mat-label class="input-text">Enter Parent Guid</mat-label>
         <input matInput [(ngModel)]="parentId">
       </mat-form-field> 
 </div>
-<label style="margin-top: 10px;">
-    <mat-slide-toggle type="checkbox" [(ngModel)]="inventoryLocation" style="font-weight: bold;"> 
+<label class="checkbox-margin">
+    <mat-slide-toggle type="checkbox" [(ngModel)]="inventoryLocation" class="custom-text"> 
         <span >Inventory Location </span>     
     </mat-slide-toggle>
-    <button mat-stroked-button class="custom-outline" (click)="updateData()" style="margin-left: 20px;">Submit</button>
+    <button mat-stroked-button class="custom-outline custom-margin" (click)="updateData()">Submit</button>
 </label>
 
-<div *ngIf="errorMessage" style="color: red;">
-    <h2 style="margin-top: 20px;"> {{ errorMessage }} </h2>
+<div *ngIf="errorMessage" class="error-message">
+    <h2> {{ errorMessage }} </h2>
 </div>
 
-<div *ngIf="location" style="color: green; margin-top: 20px;">
+<div *ngIf="location" class="success-message">
     <h2>Location ID {{location.id}} has been successfully updated.</h2>
 </div>

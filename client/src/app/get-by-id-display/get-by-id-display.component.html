@@ -1,40 +1,35 @@
-<!-- <div class="button-container">
-  <button mat-stroked-button routerLink="/home" >Back</button>
-</div> -->
+<div class="custom-header">
+    <h2 color="">Search a Location by ID</h2> 
 
-<div style="margin-top: 30px;">
-    <h2 color="">Search a Location by ID</h2>
-    <!-- <input matNativeControl type="text" [(ngModel)]="id" placeholder="Enter ID" style="width: 500px;"> -->
-
-    <div style="margin-bottom: 10px;">
-      <mat-form-field style="width: 30%;">
+    <div class="custom-bottom">
+      <mat-form-field class="custom-width"> 
         <mat-label class="input-text">Enter ID</mat-label>
         <input matInput [(ngModel)]="id">
       </mat-form-field>
     </div>
 
-    <button mat-stroked-button class="custom-outline" style="margin-left: 10px;" (click)="getData()">Submit</button>
+    <button mat-stroked-button class="custom-outline submit-button" (click)="getData()">Submit</button>
 </div>
 
-<div *ngIf="errorMessage" style="color: red;">
-  <h2 style="margin-top: 20px;"> {{ errorMessage }} </h2>
+<div *ngIf="errorMessage" class="error-message">
+  <h2> {{ errorMessage }} </h2>
 </div>
 
-<div *ngIf="location" style="margin-top: 20px;">
+<div *ngIf="location" class="custom-margin">
   <h2>Location Details</h2>
-  <p style="margin-left: 0;">
-    <span style="font-weight: bold;">ID:</span> {{ location.id }}
+  <p>
+    <span class="custom-text">ID:</span> {{ location.id }}
   </p>
-  <p style="margin-left: 0;">
-    <span style="font-weight: bold;">Name:</span> {{ location.name }}
+  <p>
+    <span class="custom-text">Name:</span> {{ location.name }}
   </p>
-  <p style="margin-left: 0;">
-    <span style="font-weight: bold;">Description:</span> {{ location.description }}
+  <p>
+    <span class="custom-text">Description:</span> {{ location.description }}
   </p>
-  <p style="margin-left: 0;">
-    <span style="font-weight: bold;">Location Code:</span> {{ location.location_code }}
+  <p>
+    <span class="custom-text">Location Code:</span> {{ location.location_code }}
   </p>
-  <p style="margin-left: 0;">
-    <span style="font-weight: bold;">Parent Id:</span> {{ location.parent_id }}
+  <p>
+    <span class="custom-text">Parent Id:</span> {{ location.parent_id }}
   </p>
 </div>
