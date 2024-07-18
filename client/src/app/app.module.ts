@@ -27,6 +27,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { InterceptorService } from './loader/interceptor.service';
 import { LoaderService } from './loader/loader.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatProgressBarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},

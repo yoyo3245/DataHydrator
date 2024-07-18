@@ -1,7 +1,8 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-locations',
@@ -15,8 +16,10 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   resultsLength: number = 0;
   pageSize: number = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  isNewestFirst: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient) {}
 
@@ -26,18 +29,17 @@ export class LocationsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   loadLocations() {
-    const req = new HttpRequest('GET', 'http://localhost:5290/api/locations', {
-      reportProgress: true,
+    const req = new HttpRequest('GET', 'http://localhost:5290/api/locations', { 
       responseType: 'json'
     });
 
     this.http.request(req).subscribe({
       next: (event: HttpEvent<any>) => {
-        if (event.type === HttpEventType.DownloadProgress) {
-          // You can handle progress here if needed
+        if (event.type === HttpEventType.DownloadProgress) { 
         } else if (event instanceof HttpResponse) {
           this.dataSource.data = event.body;
           this.resultsLength = event.body.length;
@@ -54,8 +56,8 @@ export class LocationsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onPageChange(event: PageEvent) {
-    console.log('Page changed:', event);
-    // Additional logic can be added here if needed
+  toggleSortOrder() {
+    this.isNewestFirst = !this.isNewestFirst;
+    this.dataSource.data = this.dataSource.data.reverse();
   }
 }

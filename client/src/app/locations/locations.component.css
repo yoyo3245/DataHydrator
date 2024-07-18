@@ -10,18 +10,6 @@
     left: 10px; /* Adjust as needed */
   }
 
-  .back-button {
-    background-color: white; /* White background */
-    color: black; /* Text color */
-    padding: 10px 20px; /* Padding for button */
-    border: none; /* Remove border */
-    border-radius: 20px; /* Rounded corners */
-    cursor: pointer;
-    outline: none; /* Remove outline on focus */
-    font-weight: bold; /* Optional: Make text bold */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
-  }
-
 
   .locations-table {
     width: 100%;
@@ -39,4 +27,33 @@
 
   .custom-background {
     background-color: transparent;
+  }
+
+
+  .transparent-button {
+    background-color: transparent;
+    border: none;
+    display: flex !important;
+    align-items: center;
+    margin-left: 2%;
+    justify-content: flex-start;
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+  
+  .transparent-button .button-text {
+    order: 1;
+    margin-right: 4px;
+  }
+  
+  .transparent-button .button-icon {
+    order: 2;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    color: darkgrey;
+  }
+  
+  .transparent-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }

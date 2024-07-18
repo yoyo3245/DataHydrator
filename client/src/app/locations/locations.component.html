@@ -1,8 +1,13 @@
-<div>
+<div class="header-container">
   <h2 class="custom-header">Current Locations</h2>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="custom-background">
+<button mat-button (click)="toggleSortOrder()" class="transparent-button">
+  <span class="button-text">{{ isNewestFirst ? 'Newest' : 'Oldest' }}</span>
+  <mat-icon class="button-icon">{{ isNewestFirst ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+</button>
+
+<table mat-table [dataSource]="dataSource" matSort class="custom-background">
 
   <!-- ID Column -->
   <ng-container matColumnDef="id">
@@ -62,7 +67,6 @@
 <mat-paginator [length]="resultsLength"
                [pageSize]="10"
                [pageSizeOptions]="[5, 10, 25, 100]"
-               (page)="onPageChange($event)"
                aria-label="Select page of locations"
                style="background-color: transparent;">
 </mat-paginator>
