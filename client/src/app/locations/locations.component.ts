@@ -1,8 +1,7 @@
-import { HttpClient, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-locations',
@@ -10,54 +9,70 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-  loading: boolean = true;
   displayedColumns: string[] = ['id', 'location_code', 'name', 'description', 'inventory_location', 'region', 'site', 'parent_id'];
-  resultsLength: number = 0;
-  pageSize: number = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  isNewestFirst: boolean = false;
+  dataSource = new MatTableDataSource([]);
+  resultsLength = 0;
+  isNewestFirst = false;
+  currentPage = 1;
+  pageSize = 10;
+  totalPages = 1;
+  errorMessage = ""
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-    this.loadLocations();
+  ngOnInit() {
+    this.loadData();
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.paginator.page.subscribe((event: PageEvent) => {
+      this.onPageChange(event);
+    });
   }
 
-  loadLocations() {
-    const req = new HttpRequest('GET', 'http://localhost:5290/api/locations', { 
-      responseType: 'json'
-    });
-
-    this.http.request(req).subscribe({
-      next: (event: HttpEvent<any>) => {
-        if (event.type === HttpEventType.DownloadProgress) { 
-        } else if (event instanceof HttpResponse) {
-          this.dataSource.data = event.body;
-          this.resultsLength = event.body.length;
-          this.loading = false;
-        }
+  loadData() {
+    const url = `http://localhost:5290/api/locations/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
+    
+    this.http.get<any>(url).subscribe(
+      (response) => {
+        this.dataSource.data = response.page_data;
+        this.resultsLength = response.total_count;
+        this.calculatePageInfo();
       },
-      error: (error) => {
-        console.log(error);
-        this.loading = false;
-      },
-      complete: () => {
-        console.log('Request has completed');
+      (error) => {
+        console.error('Error fetching data:', error);
+        // Handle error (e.g., show error message to user)
       }
-    });
+    );
+  }
+
+  calculatePageInfo() {
+    this.totalPages = Math.ceil(this.resultsLength / this.pageSize);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.loadData();
   }
 
   toggleSortOrder() {
     this.isNewestFirst = !this.isNewestFirst;
-    this.dataSource.data = this.dataSource.data.reverse();
+    this.currentPage = 1;
+    this.loadData();
+    this.resetPaginator();
+  }
+
+  resetPaginator() {
+    if (this.paginator) {
+      this.paginator.pageIndex = 0;
+      this.paginator.page.emit({
+        pageIndex: 0,
+        pageSize: this.pageSize,
+        length: this.resultsLength
+      });
+    }
   }
 }

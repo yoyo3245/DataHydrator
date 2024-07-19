@@ -96,5 +96,24 @@ namespace LocationAPI.Controllers
                 return NotFound();
             }
         }
+//item?page=1&pageLength=20&isNewestFirst=true
+        [HttpGet]
+        [Route("items")]
+        public async Task<IActionResult> GetPagination(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageLength = 10,
+            [FromQuery] bool isNewestFirst = false) 
+        {
+            var result = await locationRepository.GetPaginationAsync(page, pageLength, isNewestFirst);
+
+            if (result.ContainsKey("error"))
+            {
+                return BadRequest(result);
+            }
+            else 
+            {
+                return Ok(result);
+            }
+        }
     }
 }
