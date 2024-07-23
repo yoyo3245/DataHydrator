@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ToggleThemeComponent } from './toggle-theme.component';
 
 describe('ToggleThemeComponent', () => {
@@ -8,7 +8,8 @@ describe('ToggleThemeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ToggleThemeComponent]
+      declarations: [ToggleThemeComponent],
+      imports: [MatSlideToggleModule]
     });
     fixture = TestBed.createComponent(ToggleThemeComponent);
     component = fixture.componentInstance;

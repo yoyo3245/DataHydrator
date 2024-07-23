@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NavBarComponent } from './nav-bar.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing'; 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NavBarComponent } from './nav-bar.component'; 
+import { ToggleThemeComponent } from '../toggle-theme/toggle-theme.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
@@ -8,7 +10,8 @@ describe('NavBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavBarComponent]
+      declarations: [NavBarComponent, ToggleThemeComponent],
+      imports: [MatSidenavModule, MatSlideToggleModule]
     });
     fixture = TestBed.createComponent(NavBarComponent);
     component = fixture.componentInstance;

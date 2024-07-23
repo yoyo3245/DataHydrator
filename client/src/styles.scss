@@ -55,10 +55,10 @@ body {
   transition: color 0.3s ease, background-color 0.3s ease;
 }
  
-.navbar {
-  background-color: var(--navbar-background-color) !important;
-  transition: background-color 0.3s ease;
-}
+// .navbar {
+//   background-color: var(--navbar-background-color) !important;
+//   transition: background-color 0.3s ease;
+// }
 
 .navbar-dark .navbar-nav .nav-link,
 .navbar-dark .navbar-brand {
@@ -120,3 +120,21 @@ body {
   align-items: center;
   height: 100vh; 
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+// @import 'bootstrap/scss/bootstrap';
+
+/* Importing Bootstrap SCSS file. */
+// @import 'bootstrap/scss/bootstrap';
+
+// /* Importing Bootstrap SCSS file. */
+// @import 'bootstrap/scss/bootstrap';
+
+// /* Importing Bootstrap SCSS file. */
+// @import "./node_modules/bootstrap/scss/bootstrap";
+
+// /* Importing Datepicker SCSS file. */
+// @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
