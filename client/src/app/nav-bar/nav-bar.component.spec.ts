@@ -9,6 +9,7 @@ describe('NavBarComponent', () => {
   let fixture: ComponentFixture<NavBarComponent>;
 
   beforeEach(() => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [NavBarComponent, ToggleThemeComponent],
       imports: [MatSidenavModule, MatSlideToggleModule]

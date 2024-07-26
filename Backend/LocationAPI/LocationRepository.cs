@@ -13,7 +13,9 @@ namespace LocationAPI
 
         public async Task<Dictionary<string, object>> UpdateLocationAsync(Guid id, LocationUpdate updatedLocation)
         {
-            if (id == Guid.Empty || updatedLocation == null)
+            var locationCheck = await GetLocationAsync(id);
+
+            if (locationCheck.Count == 0 || updatedLocation == null)
             {
                 return new Dictionary<string, object>();
             }
@@ -118,29 +120,44 @@ namespace LocationAPI
         }
    
         public async Task<Dictionary<string, object>> GetPaginationAsync(int page, int page_length, bool isNewestFirst)
+{
+    Dictionary<string, object> result = new Dictionary<string, object>();
+    List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
+    int totalCount = 0;
+
+    if (page_length > 100)
+    {
+        result["error"] = "Maximum page length exceeded";
+        return result;
+    }
+
+    using (NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString))
+    {
+        await connection.OpenAsync();
+
+        // Get total count
+        using (NpgsqlCommand countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM locations", connection))
         {
-            Dictionary<string, object> result = new Dictionary<string, object>();
-            List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
-            int totalCount = 0;
+            totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+        }
 
-            if (page_length > 100) {
-                result["error"] = "Maximum page length exceeded";
-                return result;
-            }
+        // Define the sorting order based on isNewestFirst
+        string orderBy = isNewestFirst ? "ORDER BY created_at DESC" : "ORDER BY created_at ASC";
 
-            using (NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString))
+        // Get paginated rows with sorting
+        string query = $@"
+            SELECT id, location_code, _name, description, region, site, inventory_location, parent_id, created_at
+            FROM locations
+            {orderBy}
+            LIMIT @page_length OFFSET @offset";
+
+        using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@page_length", page_length);
+            command.Parameters.AddWithValue("@offset", (page - 1) * page_length);
+
+            using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
             {
-                await connection.OpenAsync();
-
-                // Get total count
-                using (NpgsqlCommand countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM locations", connection))
-                {
-                    totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
-                }
-
-                // Get all rows
-                NpgsqlCommand command = new NpgsqlCommand("SELECT id, location_code, _name, description, region, site, inventory_location, parent_id FROM locations", connection);
-                NpgsqlDataReader reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
                     var location = new Dictionary<string, object>
@@ -152,42 +169,36 @@ namespace LocationAPI
                         { "inventory_location", reader["inventory_location"] },
                         { "region", reader["region"] },
                         { "site", reader["site"] },
-                        { "parent_id", reader["parent_id"]}
+                        { "parent_id", reader["parent_id"] },
+                        { "created_at", reader["created_at"] }
                     };
-                    if (isNewestFirst)
-                    {
-                        locations.Insert(0,location);
-                    }
-                    else
-                    {
-                        locations.Add(location);
-                    }
-                    
-                } 
+                    locations.Add(location);
+                }
             }
-
-            // Calculate pagination
-            int startIndex = (page - 1) * page_length;
-            int endIndex = Math.Min(startIndex + page_length, totalCount);
-            int totalPages = (int)Math.Ceiling(totalCount*1.0/page_length);
-
-            if (page > totalPages) 
-            {
-                result["error"] = "Maximum page length exceeded";
-                return result;
-            }
-
-            // Get the data for the requested page
-            var pageData = locations.Skip(startIndex).Take(page_length).ToList();
-
-            result["total_count"] = totalCount;
-            result["page_data"] = pageData;
-            result["page"] = page;
-            result["total_pages"] = totalPages;
-            result["page_length"] = pageData.Count;
-
-            return result;
         }
+    }
+
+    // Calculate pagination
+    int totalPages = (int)Math.Ceiling(totalCount * 1.0 / page_length);
+
+    if (page > totalPages)
+    {
+        result["error"] = "Page number exceeds total pages";
+        return result;
+    }
+
+    // Get the data for the requested page
+    var pageData = locations;
+
+    result["total_count"] = totalCount;
+    result["page_data"] = pageData;
+    result["page"] = page;
+    result["total_pages"] = totalPages;
+    result["page_length"] = pageData.Count;
+
+    return result;
+}
+
 
         public async Task<List<Dictionary<string, object>>> GetAllLocationsAsync()
         {

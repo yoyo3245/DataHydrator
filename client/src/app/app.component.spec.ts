@@ -4,14 +4,9 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ToggleThemeComponent } from './toggle-theme/toggle-theme.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core'; 
 
-// Initialize the Angular testing environment
-TestBed.initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
-);
+// Initialize the Angular testing environment 
 
 describe('AppComponent', () => {
   beforeEach(async () => {

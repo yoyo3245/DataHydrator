@@ -57,3 +57,8 @@
   .transparent-button:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
+
+  .error-message {
+    margin-top: 20px;
+    color: red;
+  }

@@ -6,6 +6,7 @@ describe('InterceptorService', () => {
   let service: InterceptorService;
 
   beforeEach(() => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({});
     service = TestBed.inject(InterceptorService);
   });

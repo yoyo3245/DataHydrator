@@ -70,3 +70,7 @@
                aria-label="Select page of locations"
                style="background-color: transparent;">
 </mat-paginator>
+
+<div *ngIf="errorMessage" class="error-message">
+  <h2> {{ errorMessage }} </h2>
+</div>

@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // Import FormsModule here
@@ -50,8 +50,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxSpinnerModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
+    FormsModule, 
     MatSlideToggleModule,
     MatButtonModule,
     MatInputModule,

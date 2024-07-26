@@ -17,7 +17,7 @@ describe('DataHydratorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     const loaderServiceSpy = jasmine.createSpyObj('LoaderService', ['setHydrator', 'setProgress']);
-
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [DataHydratorComponent],
       imports: [

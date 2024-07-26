@@ -7,6 +7,7 @@ describe('ToggleThemeComponent', () => {
   let fixture: ComponentFixture<ToggleThemeComponent>;
 
   beforeEach(() => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       declarations: [ToggleThemeComponent],
       imports: [MatSlideToggleModule]

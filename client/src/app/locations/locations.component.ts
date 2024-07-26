@@ -16,7 +16,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   currentPage = 1;
   pageSize = 10;
   totalPages = 1;
-  errorMessage = ""
+  errorMessage = "";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -39,11 +39,11 @@ export class LocationsComponent implements OnInit, AfterViewInit {
       (response) => {
         this.dataSource.data = response.page_data;
         this.resultsLength = response.total_count;
+        this.errorMessage = "";
         this.calculatePageInfo();
       },
-      (error) => {
-        console.error('Error fetching data:', error);
-        // Handle error (e.g., show error message to user)
+      (error) => { 
+        this.errorMessage = "An Error Occurred"; 
       }
     );
   }

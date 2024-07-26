@@ -40,7 +40,7 @@ export class CreateLocationDisplayComponent {
         },
         (error: HttpErrorResponse) => {
           if (error.status === 400) {
-            this.errorMessage = 'Bad Request'; 
+            this.errorMessage = 'Please fill in all fields correctly.'; 
           } else {
             this.errorMessage = 'An Error Occurred'; 
           }

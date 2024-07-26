@@ -49,18 +49,16 @@ export class UpdateLocationDisplayComponent {
     this.http.put<any>('http://localhost:5290/api/locations/' + this.id, body)
       .subscribe(
         response => {
-          this.location = response;
-          console.log('POST request successful!', this.location);
+          this.location = response; 
           this.errorMessage = null;
         },
         (error: HttpErrorResponse) => {
-          if (error.status === 404) {
-            this.errorMessage = 'Location Not Found';
+          if (error.status === 400) {
+            this.errorMessage = 'Please fill in all fields correctly.'; 
           } else {
-            this.errorMessage = 'An Error Occurred';
+            this.errorMessage = 'An Error Occurred'; 
           }
-          this.location = null;
-          console.error('Error:', error);
+          this.location = null; 
         }
       );
   }

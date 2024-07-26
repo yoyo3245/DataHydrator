@@ -16,6 +16,7 @@ describe('DeleteByIdDisplayComponent', () => {
   let loaderService: LoaderService;
 
   beforeEach(async () => {
+    TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
       declarations: [DeleteByIdDisplayComponent],
       imports: [
@@ -96,7 +97,18 @@ describe('DeleteByIdDisplayComponent', () => {
     component.deleteData();
 
     // Mock the successful HTTP response for the delete request
-    const mockResponse = { id: testId }; // Example of a mock response
+    const mockResponse = 
+    {
+      "id": `${testId}`,
+      "location_code": "Tester1",
+      "name": "Tester name",
+      "description": "Tester1 description",
+      "inventory_location": false,
+      "region": 0,
+      "site": 0,
+      "parent_id": "00000000-0000-0000-0000-000000000000"
+    }; 
+
     const req = httpTestingController.expectOne(`http://localhost:5290/api/locations/${testId}`);
     req.flush(mockResponse); // Flush the response with the mock data
 
