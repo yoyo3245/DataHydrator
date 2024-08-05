@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-get-by-id-display',
@@ -8,22 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./get-by-id-display.component.css']
 })
 export class GetByIdDisplayComponent {
-
-  id:String = '';
+  displayedColumns: string[] = ['id', 'location_code', 'name', 'description', 'inventory_location', 'location_type', 'parent_id'];
+  id: string = '';
   location: any;
-  errorMessage: String = '';
-  
-  constructor(private http:HttpClient){}
-  
+  errorMessage: string = '';
+  dataSource = new MatTableDataSource<any>([]);
+
+  constructor(private http: HttpClient) {}
+
   getData() {
     if (this.id.length === 0) {
       this.errorMessage = 'Bad Request';
       this.location = null;
       return; 
     }
-    this.http.get('http://localhost:5290/api/locations/' + this.id).subscribe({
+    this.http.get<any>('http://localhost:5290/api/locations/' + this.id).subscribe({
       next: (response: any) => {
         this.location = response;
+        this.dataSource.data = [response];
         this.errorMessage = ''; 
       },
       error: (error: HttpErrorResponse) => {
