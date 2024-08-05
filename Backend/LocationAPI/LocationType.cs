@@ -1,8 +1,7 @@
 ﻿namespace LocationAPI
 {
-    public enum LocationType
+    public class LocationType
     {
-        Region = 0,
-        Site = 0
+        public string Name { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace LocationAPI
                 return new Dictionary<string, object>();
             }
 
-            string[] columnName = { "location_code", "_name", "description", "region", "site", "inventory_location", "parent_id" };
+            string[] columnName = { "location_code", "_name", "description", "location_id", "inventory_location", "parent_id" };
 
             using (var connection = _connectionFactory.CreateConnection(connectionString))
             {
@@ -62,8 +62,7 @@ namespace LocationAPI
                     { "name", reader["_name"] },
                     { "description", reader["description"] },
                     { "inventory_location", reader["inventory_location"] },
-                    { "region", reader["region"] },
-                    { "site", reader["site"] },
+                    { "location_id", reader["location_id"] }, 
                     { "parent_id", reader["parent_id"] }
                 };
 
@@ -84,8 +83,12 @@ namespace LocationAPI
             }
             NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
             await connection.OpenAsync();
-
-            var cmdSelect = new NpgsqlCommand("SELECT * FROM locations WHERE id = @id", connection);
+            var query = @"
+            SELECT 
+            l.id, l.location_code, l._name, l.description, lt.name as location_type, l.inventory_location, l.parent_id, l.created_at 
+            FROM locations l left join location_types lt  on l.location_id = lt.id 
+            WHERE l.id = @id;";
+            var cmdSelect = new NpgsqlCommand(query , connection);
             cmdSelect.Parameters.AddWithValue("id", id);
 
             Dictionary<string, object> location = null;
@@ -95,17 +98,16 @@ namespace LocationAPI
                 if (reader.Read())
                 {
                     location = new Dictionary<string, object>
-                {
-                    { "id", reader["id"] },
-                    { "location_code", reader["location_code"] },
-                    { "name", reader["_name"] },
-                    { "description", reader["description"] },
-                    { "inventory_location", reader["inventory_location"] },
-                    { "region", reader["region"] },
-                    { "site", reader["site"] },
-                    { "parent_id", reader["parent_id"] }
-                };
-                }
+                    {
+                        { "id", reader["id"] },
+                        { "location_code", reader["location_code"] },
+                        { "name", reader["_name"] },
+                        { "description", reader["description"] },
+                        { "inventory_location", reader["inventory_location"] },
+                        { "location_type", reader["location_type"] },
+                        { "parent_id", reader["parent_id"] }
+                    };
+                    }
                 else
                 {
                     return new Dictionary<string, object>();
@@ -120,84 +122,83 @@ namespace LocationAPI
         }
    
         public async Task<Dictionary<string, object>> GetPaginationAsync(int page, int page_length, bool isNewestFirst)
-{
-    Dictionary<string, object> result = new Dictionary<string, object>();
-    List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
-    int totalCount = 0;
-
-    if (page_length > 100)
-    {
-        result["error"] = "Maximum page length exceeded";
-        return result;
-    }
-
-    using (NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString))
-    {
-        await connection.OpenAsync();
-
-        // Get total count
-        using (NpgsqlCommand countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM locations", connection))
         {
-            totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
-        }
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
+            int totalCount = 0;
 
-        // Define the sorting order based on isNewestFirst
-        string orderBy = isNewestFirst ? "ORDER BY created_at DESC" : "ORDER BY created_at ASC";
-
-        // Get paginated rows with sorting
-        string query = $@"
-            SELECT id, location_code, _name, description, region, site, inventory_location, parent_id, created_at
-            FROM locations
-            {orderBy}
-            LIMIT @page_length OFFSET @offset";
-
-        using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
-        {
-            command.Parameters.AddWithValue("@page_length", page_length);
-            command.Parameters.AddWithValue("@offset", (page - 1) * page_length);
-
-            using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
+            if (page_length > 100)
             {
-                while (await reader.ReadAsync())
+                result["error"] = "Maximum page length exceeded";
+                return result;
+            }
+
+            using (NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                // Get total count
+                using (NpgsqlCommand countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM locations", connection))
                 {
-                    var location = new Dictionary<string, object>
+                    totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+                }
+
+                // Define the sorting order based on isNewestFirst
+                string orderBy = isNewestFirst ? "ORDER BY created_at DESC" : "ORDER BY created_at ASC";
+
+                // Get paginated rows with sorting
+                string query = $@"
+                    SELECT l.id, l.location_code, l._name, l.description, lt.name as location_type, l.inventory_location, l.parent_id, l.created_at
+                    FROM locations l left join location_types lt  on l.location_id = lt.id
+                    {orderBy}
+                    LIMIT @page_length OFFSET @offset";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@page_length", page_length);
+                    command.Parameters.AddWithValue("@offset", (page - 1) * page_length);
+
+                    using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        { "id", reader["id"] },
-                        { "location_code", reader["location_code"] },
-                        { "name", reader["_name"] },
-                        { "description", reader["description"] },
-                        { "inventory_location", reader["inventory_location"] },
-                        { "region", reader["region"] },
-                        { "site", reader["site"] },
-                        { "parent_id", reader["parent_id"] },
-                        { "created_at", reader["created_at"] }
-                    };
-                    locations.Add(location);
+                        while (await reader.ReadAsync())
+                        {
+                            var location = new Dictionary<string, object>
+                            {
+                                { "id", reader["id"] },
+                                { "location_code", reader["location_code"] },
+                                { "name", reader["_name"] },
+                                { "description", reader["description"] },
+                                { "inventory_location", reader["inventory_location"] },
+                                { "location_type", reader["location_type"] },
+                                { "parent_id", reader["parent_id"] },
+                                { "created_at", reader["created_at"] }
+                            };
+                            locations.Add(location);
+                        }
+                    }
                 }
             }
+
+            // Calculate pagination
+            int totalPages = (int)Math.Ceiling(totalCount * 1.0 / page_length);
+
+            if (page > totalPages)
+            {
+                result["error"] = "Page number exceeds total pages";
+                return result;
+            }
+
+            // Get the data for the requested page
+            var pageData = locations;
+
+            result["total_count"] = totalCount;
+            result["page_data"] = pageData;
+            result["page"] = page;
+            result["total_pages"] = totalPages;
+            result["page_length"] = pageData.Count;
+
+            return result;
         }
-    }
-
-    // Calculate pagination
-    int totalPages = (int)Math.Ceiling(totalCount * 1.0 / page_length);
-
-    if (page > totalPages)
-    {
-        result["error"] = "Page number exceeds total pages";
-        return result;
-    }
-
-    // Get the data for the requested page
-    var pageData = locations;
-
-    result["total_count"] = totalCount;
-    result["page_data"] = pageData;
-    result["page"] = page;
-    result["total_pages"] = totalPages;
-    result["page_length"] = pageData.Count;
-
-    return result;
-}
 
 
         public async Task<List<Dictionary<string, object>>> GetAllLocationsAsync()
@@ -227,8 +228,6 @@ namespace LocationAPI
                 allLocations.Add(location);
             }
 
-            await Task.Delay(3000);
-
             return allLocations;
         }
 
@@ -243,16 +242,15 @@ namespace LocationAPI
             await connection.OpenAsync();
 
             NpgsqlCommand command = new NpgsqlCommand(
-                "INSERT INTO locations (location_code, _name, description, region, site, inventory_location, parent_id) " +
-                "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7) RETURNING id", connection);
+                "INSERT INTO locations (location_code, _name, description, location_id, inventory_location, parent_id) " +
+                "VALUES (@value1, @value2, @value3, @value4, @value5, @value6) RETURNING id", connection);
 
             command.Parameters.AddWithValue("@value1", location.LocationCode);
             command.Parameters.AddWithValue("@value2", location.Name);
             command.Parameters.AddWithValue("@value3", location.Description);
-            command.Parameters.AddWithValue("@value4", (int)LocationType.Region);
-            command.Parameters.AddWithValue("@value5", (int)LocationType.Site);
-            command.Parameters.AddWithValue("@value6", location.InventoryLocation);
-            command.Parameters.AddWithValue("@value7", location.ParentId);
+            command.Parameters.AddWithValue("@value4", location.LocationId);
+            command.Parameters.AddWithValue("@value5", location.InventoryLocation);
+            command.Parameters.AddWithValue("@value6", location.ParentId);
 
             Guid guidId = (Guid)await command.ExecuteScalarAsync();
             connection.Close();
@@ -286,8 +284,7 @@ namespace LocationAPI
                         { "name", reader["_name"] },
                         { "description", reader["description"] },
                         { "inventory_location", reader["inventory_location"] },
-                        { "region", reader["region"] },
-                        { "site", reader["site"] },
+                        { "location_id", reader["location_id"] },
                         { "parent_id", reader["parent_id"] }
                     };
                     return location;
@@ -299,5 +296,292 @@ namespace LocationAPI
             }
             
         }
+
+        public async Task<List<Dictionary<string, object>>> GetAllLocationTypesAsync()
+        {
+            List<Dictionary<string, object>> allTypes = new List<Dictionary<string, object>>();
+
+            NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
+            await connection.OpenAsync();
+            NpgsqlCommand command = new NpgsqlCommand("SELECT id, name FROM location_types", connection);
+
+            NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+            while (reader.Read())
+            {
+                var type = new Dictionary<string, object>
+                {
+                    { "id", reader["id"] },
+                    { "name", reader["name"] }
+                };
+
+                allTypes.Add(type);
+            }
+
+            return allTypes;
+        }
+
+        public async Task<Dictionary<string, object>> DeleteLocationTypeAsync(Guid id)
+        {
+            var forbiddenId1 = new Guid("39d802c5-4dfb-4773-9860-11207fc01ff8");
+            var forbiddenId2 = new Guid("871df559-4248-4fbd-b89e-827582ed656c");
+
+            if (id == Guid.Empty || id == null)
+            {
+                return new Dictionary<string, object>();
+            }
+
+                else if (id == forbiddenId1 || id == forbiddenId2) 
+                {
+                    return new Dictionary<string, object>();
+                }
+                
+            NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
+            await connection.OpenAsync();
+            var query = @"
+            SELECT id, name
+            FROM location_types 
+            WHERE id = @id;";
+            var cmdSelect = new NpgsqlCommand(query , connection);
+            cmdSelect.Parameters.AddWithValue("id", id);
+
+            Dictionary<string, object> location = null;
+
+            using (NpgsqlDataReader reader = await cmdSelect.ExecuteReaderAsync())
+            {
+                if (reader.Read())
+                {
+                    location = new Dictionary<string, object>
+                    {
+                        { "id", reader["id"] },
+                        { "name", reader["name"] },
+                    };
+                    }
+                else
+                {
+                    return new Dictionary<string, object>();
+                }
+            }
+            
+            var cmdDelete = new NpgsqlCommand("DELETE FROM location_types WHERE id = @id", connection);
+            cmdDelete.Parameters.AddWithValue("id", id);
+            cmdDelete.ExecuteNonQuery();
+
+            return location;
+        }
+
+        public async Task<Dictionary<string, object>> GetTypePaginationAsync(int page, int page_length, bool isNewestFirst)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
+            int totalCount = 0;
+
+            if (page_length > 100)
+            {
+                result["error"] = "Maximum page length exceeded";
+                return result;
+            }
+
+            using (NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                // Get total count
+                using (NpgsqlCommand countCommand = new NpgsqlCommand("SELECT COUNT(*) FROM location_types", connection))
+                {
+                    totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+                }
+
+                // Define the sorting order based on isNewestFirst
+                string orderBy = isNewestFirst ? "ORDER BY created_at DESC" : "ORDER BY created_at ASC";
+
+                // Get paginated rows with sorting
+                string query = $@"
+                    SELECT id, name
+                    FROM location_types
+                    {orderBy}
+                    LIMIT @page_length OFFSET @offset";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@page_length", page_length);
+                    command.Parameters.AddWithValue("@offset", (page - 1) * page_length);
+
+                    using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var location = new Dictionary<string, object>
+                            {
+                                { "id", reader["id"] },
+                                { "name", reader["name"] }
+                            };
+                            locations.Add(location);
+                        }
+                    }
+                }
+            }
+
+            // Calculate pagination
+            int totalPages = (int)Math.Ceiling(totalCount * 1.0 / page_length);
+
+            if (page > totalPages)
+            {
+                result["error"] = "Page number exceeds total pages";
+                return result;
+            }
+
+            // Get the data for the requested page
+            var pageData = locations;
+
+            result["total_count"] = totalCount;
+            result["page_data"] = pageData;
+            result["page"] = page;
+            result["total_pages"] = totalPages;
+            result["page_length"] = pageData.Count;
+
+            return result;
+        }
+
+
+        public async Task<Dictionary<string, Guid>> CreateTypeAsync(LocationType location)
+        {
+            if (location == null)
+            {
+                return new Dictionary<string, Guid>();
+            }
+
+            // Ensure connection is properly disposed by using 'using' statement
+            using (var connection = _connectionFactory.CreateConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                // Use 'using' statement for command as well to ensure proper disposal
+                using (var command = new NpgsqlCommand(
+                    "INSERT INTO location_types (name) VALUES (@value1) RETURNING id", connection))
+                {
+                    // Set parameter value and type explicitly
+                    command.Parameters.AddWithValue("@value1", location.Name);
+
+                    // Execute command and get the returned value
+                    var guidId = (Guid)await command.ExecuteScalarAsync();
+
+                    return new Dictionary<string, Guid> { { "id", guidId } };
+                }
+            }
+        }
+
+
+        public async Task<Dictionary<string, object>> GetLocationCountByTypeAsync(Guid id)
+        {
+            if (id == Guid.Empty || id == null)
+            {
+                return new Dictionary<string, object>();
+            }
+
+            NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
+            await connection.OpenAsync();
+            NpgsqlCommand command = new NpgsqlCommand("SELECT COUNt(*) FROM locations WHERE location_id = @id", connection);
+            command.Parameters.AddWithValue("id", id);
+
+            var count = await command.ExecuteScalarAsync();
+            if (count == null) 
+            {
+                count = 0;
+            }
+            return new Dictionary<string, object> { { "count", count } };
+                        
+        }
+
+        public async Task<Dictionary<string, object>> GetLocationsByTypePaginationAsync(Guid id, int page, int page_length, bool isNewestFirst)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
+            int totalCount = 0;
+
+            if (id == Guid.Empty)
+            {
+                result["error"] = "Invalid ID";
+                return result;
+            }
+
+            if (page_length > 100)
+            {
+                result["error"] = "Maximum page length exceeded";
+                return result;
+            }
+
+            using (NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (NpgsqlCommand checkCommand = new NpgsqlCommand(
+                    "SELECT name FROM location_types WHERE id = @id", connection))
+                {
+                    checkCommand.Parameters.AddWithValue("@id", id);
+                    var locationTypeName = await checkCommand.ExecuteScalarAsync();
+                    
+                    if (locationTypeName == null)
+                    {
+                        result["error"] = "ID not found";
+                        return result;
+                    }
+                }
+
+                using (NpgsqlCommand countCommand = new NpgsqlCommand(
+                    @"SELECT COUNT(*) 
+                    FROM locations l
+                    JOIN location_types lt ON l.location_id = lt.id
+                    WHERE lt.id = @id", connection))
+                {
+                    countCommand.Parameters.AddWithValue("@id", id);
+                    totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+                }
+
+                string orderBy = isNewestFirst ? "ORDER BY created_at DESC" : "ORDER BY created_at ASC";
+
+                string query = $@"
+                    SELECT l.id, l.location_code, l._name, l.description, lt.name as location_type, l.inventory_location, l.parent_id, l.created_at
+                    FROM locations l
+                    JOIN location_types lt ON l.location_id = lt.id
+                    WHERE lt.id = @id
+                    {orderBy}
+                    LIMIT @page_length OFFSET @offset";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@page_length", page_length);
+                    command.Parameters.AddWithValue("@offset", (page - 1) * page_length);
+
+                    using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var location = new Dictionary<string, object>
+                            {
+                                { "id", reader["id"] },
+                                { "location_code", reader["location_code"] },
+                                { "name", reader["_name"] },
+                                { "description", reader["description"] },
+                                { "inventory_location", reader["inventory_location"] },
+                                { "location_type", reader["location_type"] },
+                                { "parent_id", reader["parent_id"] }
+                            };
+                            locations.Add(location);
+                        }
+                    }
+                }
+            }
+
+            result["total_count"] = totalCount;
+            result["page"] = page;
+            result["page_length"] = page_length;
+            result["page_data"] = locations;
+
+            return result;
+        }
     }
+
+    
 }

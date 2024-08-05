@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -6,7 +6,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   templateUrl: './create-location-display.component.html',
   styleUrls: ['./create-location-display.component.css']
 })
-export class CreateLocationDisplayComponent {
+export class CreateLocationDisplayComponent implements OnInit{
   location: any;
   errorMessage: string | null = null; 
   
@@ -18,15 +18,30 @@ export class CreateLocationDisplayComponent {
   inventoryLocation: boolean = false;
   parentId: string | null = null;
 
+  types: any;
+  selectedTypeId: any | null = null;
+
   constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.http.get<any>('http://localhost:5290/api/locations/types')
+      .subscribe(
+        response => {
+          this.types = response;
+        },
+        (error: HttpErrorResponse) => {
+          this.types = [];
+          console.error('Error:', error);
+        }
+      )
+  }
 
   createData() {
     const body = {
       "LocationCode": this.locationCode,
       "Name": this.name,
       "Description": this.description,
-      "Region": this.region,
-      "Site": this.site,
+      "LocationId": this.selectedTypeId,
       "InventoryLocation": this.inventoryLocation,
       "ParentId": this.parentId
     };

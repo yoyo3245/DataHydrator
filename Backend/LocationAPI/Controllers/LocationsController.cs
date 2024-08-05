@@ -48,6 +48,22 @@ namespace LocationAPI.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("types/{id}")]
+        public async Task<IActionResult> DeleteLocationType(Guid id)
+        {
+            var location = await locationRepository.DeleteLocationTypeAsync(id);
+
+            if (location.Count != 0)
+            {
+                return Ok(location);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllLocations()
         {
@@ -64,7 +80,22 @@ namespace LocationAPI.Controllers
             }
         }
 
-    
+        [HttpGet]
+        [Route("types")]
+        public async Task<IActionResult> GetAllTypes()
+        {
+            var allTypes = await locationRepository.GetAllLocationTypesAsync();
+
+            if (allTypes.Count != 0)
+            {
+                var json = JsonSerializer.Serialize(allTypes);
+                return Ok(json);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateLocation([FromBody] Location location)
@@ -96,7 +127,7 @@ namespace LocationAPI.Controllers
                 return NotFound();
             }
         }
-//item?page=1&pageLength=20&isNewestFirst=true
+        
         [HttpGet]
         [Route("items")]
         public async Task<IActionResult> GetPagination(
@@ -115,5 +146,76 @@ namespace LocationAPI.Controllers
                 return Ok(result);
             }
         }
+
+        [HttpGet]
+        [Route("types/items")]
+        public async Task<IActionResult> GetTypePagination(
+            [FromQuery] int page, 
+            [FromQuery] int pageLength = 10,
+            [FromQuery] bool isNewestFirst = false)
+            {
+                var result = await locationRepository.GetTypePaginationAsync(page, pageLength, isNewestFirst);
+
+                if (result.ContainsKey("error"))
+                {
+                    return BadRequest(result);
+                }
+                else 
+                {
+                    return Ok(result);
+                }
+            }
+
+        [HttpPost]
+        [Route("types")]
+        public async Task<IActionResult> CreateType([FromBody] LocationType location)
+        {
+            var id = await locationRepository.CreateTypeAsync(location);
+
+            if (id.Count != 0)
+            {
+                return Ok(id);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        // [HttpGet]
+        // [Route("types/{id}")]
+        // public async Task<IActionResult> GetLocationCountByType(Guid id)
+        // {
+        //     var response = await locationRepository.GetLocationCountByTypeAsync(id);
+
+        //     if (response.Count != 0)
+        //     {
+        //         return Ok(response);
+        //     }
+        //     else
+        //     {
+        //         return NotFound();
+        //     }
+        // }
+
+        [HttpGet]
+        [Route("types/{id}/items")]
+        public async Task<IActionResult> GetLocationsByTypePaginationAsync(
+            Guid id,
+            [FromQuery] int page, 
+            [FromQuery] int pageLength = 10,
+            [FromQuery] bool isNewestFirst = false)
+            {
+                var result = await locationRepository.GetLocationsByTypePaginationAsync(id, page, pageLength, isNewestFirst);
+
+                if (result.ContainsKey("error"))
+                {
+                    return NotFound(result);
+                }
+                else 
+                {
+                    return Ok(result);
+                }
+            }
     }
 }

@@ -1,0 +1,23 @@
+<div class="text-form">
+    <h2>Enter Name of the Location Type to be Added</h2>
+    <div class="form-container">
+      <mat-form-field appearance="fill" class="custom-width">
+        <mat-label class="input-text">Enter Name</mat-label>
+            <input matInput [(ngModel)]="name">
+            <mat-hint>No duplicates</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <label class="custom-label">
+      <button mat-stroked-button class="custom-outline custom-margin" (click)="createData()">Submit</button>
+  </label>
+   
+  <div *ngIf="errorMessage" class="error-message">
+      <h2> {{ errorMessage }} </h2>
+  </div>
+  
+  <div *ngIf="type" class="success-message">
+      <h2>Location Type ID {{type.id}} has been successfully Created.</h2>
+  </div>
+  

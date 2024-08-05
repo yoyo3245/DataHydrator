@@ -1,21 +1,17 @@
-<!-- <div class="button-container">
-    <button mat-stroked-button routerLink="/home">Back</button>
-</div> -->
-
 <div class="custom-header"> 
-    <h2>Enter a Valid Location ID to Delete</h2>
+    <h2>Enter a Valid Type ID to Delete</h2>
 
     <div class="custom-bottom">
         <mat-form-field class="custom-width">
           <mat-label class="input-text">Enter ID</mat-label>
           <input matInput [(ngModel)]="id">
+          <mat-hint>Cannot delete "Region" or "Site"</mat-hint>
         </mat-form-field>
       </div>
-    <!-- <input matNativeControl type="text" [(ngModel)]="id" placeholder="Enter ID" style="width: 500px;"> -->
     <button mat-stroked-button class="custom-outline submit-button" (click)="deleteData()">Submit</button>
 </div>
 
-<div *ngIf="errorMessage" class="error-message">
+<div *ngIf="errorMessage && !location" class="error-message">
     <h2> {{ errorMessage }} </h2>
 </div>
 

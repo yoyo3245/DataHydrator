@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-update-location-display',
   templateUrl: './update-location-display.component.html',
   styleUrls: ['./update-location-display.component.css']
 })
-export class UpdateLocationDisplayComponent {
+export class UpdateLocationDisplayComponent implements OnInit{
   location: any;
   errorMessage: string | null = null; 
   
@@ -19,7 +19,23 @@ export class UpdateLocationDisplayComponent {
   inventoryLocation: boolean | null = null;
   parentId: string | null = null;
 
+  types: any;
+  selectedTypeId: any | null = null;
+
   constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.http.get<any>('http://localhost:5290/api/locations/types')
+      .subscribe(
+        response => {
+          this.types = response;
+        },
+        (error: HttpErrorResponse) => {
+          this.types = [];
+          console.error('Error:', error);
+        }
+      )
+  }
 
   updateData(){
     const body: any = {}; // Initialize empty body object
@@ -33,11 +49,8 @@ export class UpdateLocationDisplayComponent {
     if (this.description !== null) {
       body.Description = this.description;
     }
-    if (this.region !== null) {
-      body.Region = this.region;
-    }
-    if (this.site !== null) {
-      body.Site = this.site;
+    if (this.selectedTypeId !== null) {
+      body.LocationId = this.selectedTypeId;
     }
     if (this.inventoryLocation !== null) {
       body.InventoryLocation = this.inventoryLocation;

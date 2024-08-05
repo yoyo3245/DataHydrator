@@ -26,8 +26,8 @@
   }
 
   .table-container {
-    width: 100%;
-    max-width: 1400px;
+    width: 90%;
+    max-width: 700px;
     margin: 0 auto;
     overflow-x: auto;
   }
@@ -42,7 +42,7 @@
     border: none;
     display: flex !important;
     align-items: center;
-    margin-left: 4.4%;
+    margin-left: 27.5%;
     justify-content: flex-start;
     padding: 4px 8px;
     font-size: 14px;

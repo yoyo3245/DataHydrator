@@ -1,31 +1,33 @@
 <div class="text-form">
-    <h2>Enter Information For Each Atributte of the Location to be Added</h2>
-
-    <mat-form-field appearence="fill" class="custom-width">
-        <mat-label class="input-text">Enter Location Code</mat-label>
-        <input matInput [(ngModel)]="locationCode">
-      </mat-form-field>
-      <mat-form-field appearence="fill" class="custom-width custom-margin">
-        <mat-label class="input-text">Enter Name</mat-label>
-        <input matInput [(ngModel)]="name">
-      </mat-form-field>
-      <mat-form-field appearence="fill" class="custom-width custom-margin">
-        <mat-label class="input-text">Enter Description</mat-label>
-        <input matInput [(ngModel)]="description">
-      </mat-form-field>
-      <mat-form-field appearence="fill" class="custom-width">
-        <mat-label class="input-text">Enter Region</mat-label>
-        <input matInput [(ngModel)]="region">
-      </mat-form-field>
-      <mat-form-field appearence="fill" class="custom-width custom-margin">
-        <mat-label class="input-text">Enter Site</mat-label>
-        <input matInput [(ngModel)]="site">
-      </mat-form-field>
-      <mat-form-field appearence="fill" class="custom-width custom-margin">
-        <mat-label class="input-text">Enter Parent Guid</mat-label>
-        <input matInput [(ngModel)]="parentId">
-      </mat-form-field> 
+  <h2>Enter Information For Each Attribute of the Location to be Added</h2>
+  <div class="form-container">
+    <mat-form-field appearance="fill" class="custom-width">
+      <mat-label class="input-text">Enter Location Code</mat-label>
+      <input matInput [(ngModel)]="locationCode">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-width">
+      <mat-label class="input-text">Enter Name</mat-label>
+      <input matInput [(ngModel)]="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-width">
+      <mat-label class="input-text">Enter Description</mat-label>
+      <input matInput [(ngModel)]="description">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-width">
+      <mat-label>Location Type</mat-label>
+      <mat-select [(ngModel)]="selectedTypeId">
+        <mat-option *ngFor="let type of types" [value]="type.id">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="custom-width">
+      <mat-label class="input-text">Enter Parent Guid</mat-label>
+      <input matInput [(ngModel)]="parentId">
+    </mat-form-field>
+  </div>
 </div>
+
 <label class="custom-label">
     <mat-slide-toggle type="checkbox" [(ngModel)]="inventoryLocation" class="custom-text"> 
         <span>Inventory Location </span>

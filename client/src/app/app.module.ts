@@ -30,6 +30,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatSelectModule } from '@angular/material/select';
+import { LocationTypesDisplayComponent } from './location-types-display/location-types-display.component';
+import { CreateTypeDisplayComponent } from './create-type-display/create-type-display.component';
+import { GetTypeByIdComponent } from './get-type-by-id/get-type-by-id.component';
+import { DeleteTypeDisplayComponent } from './delete-type-display/delete-type-display.component';
 
 
 @NgModule({
@@ -42,7 +47,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UpdateLocationDisplayComponent,
     DataHydratorComponent,
     ToggleThemeComponent,
-    NavBarComponent
+    NavBarComponent,
+    LocationTypesDisplayComponent,
+    CreateTypeDisplayComponent,
+    GetTypeByIdComponent,
+    DeleteTypeDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +73,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    NgbModule
+    NgbModule,
+    MatSelectModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},

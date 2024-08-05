@@ -1,21 +1,31 @@
-<div class="header-container">
-  <h2 class="custom-header">Current Locations</h2>
+<div class="custom-header">
+    <h2 color="">Search a Type by ID</h2> 
+
+    <div class="custom-bottom">
+      <mat-form-field class="custom-width"> 
+        <mat-label class="input-text">Enter ID</mat-label>
+        <input matInput [(ngModel)]="id">
+      </mat-form-field>
+    </div>
+
+    <button mat-stroked-button class="custom-outline submit-button" (click)="loadData()">Submit</button>
 </div>
 
-<button mat-stroked-button routerLink="/create"> Create </button>
-<button mat-stroked-button routerLink="/update" class="custom-margin"> Update </button>
-<button mat-stroked-button routerLink="/get" class="custom-margin"> Search </button>
-<button mat-stroked-button routerLink="/delete" class="custom-margin"> Delete </button>
+<div *ngIf="errorMessage" class="error-message">
+  <h2> {{ errorMessage }} </h2>
+</div>
 
-<button mat-button (click)="toggleSortOrder()" class="transparent-button">
-  <span class="button-text">{{ isNewestFirst ? 'Newest' : 'Oldest' }}</span>
-  <mat-icon class="button-icon">{{ isNewestFirst ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
-</button>
 
-<div class="table-container">
-<table mat-table [dataSource]="dataSource" matSort class="custom-background">
 
-  <!-- ID Column -->
+<div *ngIf="table" class="table-container">
+
+    <button mat-button (click)="toggleSortOrder()" class="transparent-button">
+        <span class="button-text">{{ isNewestFirst ? 'Newest' : 'Oldest' }}</span>
+        <mat-icon class="button-icon">{{ isNewestFirst ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+    </button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="custom-background">
+      <!-- ID Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
     <td mat-cell *matCellDef="let location"> {{ location.id }} </td>
@@ -56,22 +66,19 @@
     <th mat-header-cell *matHeaderCellDef> Parent ID </th>
     <td mat-cell *matCellDef="let location"> {{ location.parent_id }} </td>
   </ng-container>
-
-  <!-- Header Row -->
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   
-  <!-- Data Rows -->
-  <tr mat-row *matRowDef="let location; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [length]="resultsLength"
-               [pageSize]="10"
-               [pageSizeOptions]="[5, 10, 25, 100]"
-               aria-label="Select page of locations"
-               style="background-color: transparent;">
-</mat-paginator>
-</div>
-
-<div *ngIf="errorMessage" class="error-message">
-  <h2> {{ errorMessage }} </h2>
-</div>
+  
+      <!-- Header Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      
+      <!-- Data Rows -->
+      <tr mat-row *matRowDef="let location; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [length]="resultsLength"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   aria-label="Select page of locations"
+                   style="background-color: transparent;">
+    </mat-paginator>
+  </div>

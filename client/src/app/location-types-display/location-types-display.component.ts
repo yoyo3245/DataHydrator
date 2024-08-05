@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-locations',
-  templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.css']
+  selector: 'app-location-types-display',
+  templateUrl: './location-types-display.component.html',
+  styleUrls: ['./location-types-display.component.css']
 })
-export class LocationsComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'location_code', 'name', 'description', 'inventory_location', 'location_type', 'parent_id'];
+export class LocationTypesDisplayComponent {
+  displayedColumns: string[] = ['id','name'];
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
   isNewestFirst = false;
@@ -33,7 +33,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   }
 
   loadData() {
-    const url = `http://localhost:5290/api/locations/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
+    const url = `http://localhost:5290/api/locations/types/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
     
     this.http.get<any>(url).subscribe(
       (response) => {
@@ -75,4 +75,5 @@ export class LocationsComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
 }

@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-locations',
-  templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.css']
+  selector: 'app-get-type-by-id',
+  templateUrl: './get-type-by-id.component.html',
+  styleUrls: ['./get-type-by-id.component.css']
 })
-export class LocationsComponent implements OnInit, AfterViewInit {
+export class GetTypeByIdComponent {
   displayedColumns: string[] = ['id', 'location_code', 'name', 'description', 'inventory_location', 'location_type', 'parent_id'];
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
@@ -17,14 +17,16 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   pageSize = 10;
   totalPages = 1;
   errorMessage = "";
+  id = "";
+  table = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.loadData();
-  }
+  // ngOnInit() {
+  //   this.loadData();
+  // }
 
   ngAfterViewInit() {
     this.paginator.page.subscribe((event: PageEvent) => {
@@ -33,7 +35,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   }
 
   loadData() {
-    const url = `http://localhost:5290/api/locations/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
+    const url = `http://localhost:5290/api/locations/types/${this.id}/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
     
     this.http.get<any>(url).subscribe(
       (response) => {
@@ -41,9 +43,11 @@ export class LocationsComponent implements OnInit, AfterViewInit {
         this.resultsLength = response.total_count;
         this.errorMessage = "";
         this.calculatePageInfo();
+        this.table = true;
       },
       (error) => { 
-        this.errorMessage = "An Error Occurred"; 
+        this.errorMessage = "Location Type Not Found"; 
+        this.table = false
       }
     );
   }

@@ -45,8 +45,7 @@ export class DataHydratorComponent {
           "LocationCode": `${this.nameFormat}${index}`,
           "Name": `${this.nameFormat} name`,
           "Description": `${this.nameFormat}${index} description`,
-          "Region": 0,
-          "Site": 0,
+          "LocationId": "39d802c5-4dfb-4773-9860-11207fc01ff8",
           "InventoryLocation": false,
           "ParentId": `00000000-0000-0000-0000-000000000000`
         };
@@ -88,8 +87,7 @@ export class DataHydratorComponent {
           "LocationCode": `Child level${level} - ${index}`,
           "Name": `Child level${level} name - ${index}`,
           "Description": `Child level${level} description - ${index}`,
-          "Region": 0,
-          "Site": 0,
+          "LocationId": "871df559-4248-4fbd-b89e-827582ed656c",
           "InventoryLocation": false,
           "ParentId": '' // Initialize with an empty string or appropriate default value
         } as { [key: string]: any }; // Type assertion to allow any property
