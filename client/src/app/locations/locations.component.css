@@ -5,9 +5,9 @@
   }
   
   .button-container {
-    position: absolute;
-    top: 30px; /* Adjust as needed */
-    left: 10px; /* Adjust as needed */
+    display: flex;
+    align-items: center; /* Vertically centers the buttons */
+    justify-content: flex-start; /* Align buttons to the start */
   }
 
 
@@ -36,31 +36,39 @@
     background-color: transparent;
   }
 
-
-  .transparent-button {
+  .export-button, .transparent-button {
     background-color: transparent;
     border: none;
-    display: flex !important;
-    align-items: center;
-    margin-left: 4.4%;
-    justify-content: flex-start;
-    padding: 4px 8px;
-    font-size: 14px;
+    display: flex; /* Flex display for inline alignment */
+    align-items: center; /* Vertical alignment */
+    padding: 4px 8px; /* Consistent padding */
+    font-size: 20px; /* Adjust font size if needed */
+    cursor: pointer; /* Add a pointer cursor for better UX */
+  }
+  
+  /* Specific styles for each button */
+  .export-button {
+    margin-left: 0; /* Adjusted margin */
+  }
+  
+  .transparent-button {
+    margin-left: 4.4%; /* Adjusted margin */
+    margin-right: 82%;
+    font-size: 14px; /* Adjust font size */
   }
   
   .transparent-button .button-text {
-    order: 1;
     margin-right: 4px;
   }
   
   .transparent-button .button-icon {
-    order: 2;
     font-size: 18px;
     height: 18px;
     width: 18px;
     color: darkgrey;
   }
   
+  /* Hover effect */
   .transparent-button:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }

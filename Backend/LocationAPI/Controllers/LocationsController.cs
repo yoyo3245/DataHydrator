@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 
 
@@ -60,7 +61,7 @@ namespace LocationAPI.Controllers
             }
             else
             {
-                return NotFound();
+                return NotFound(location);
             }
         }
 
@@ -152,9 +153,10 @@ namespace LocationAPI.Controllers
         public async Task<IActionResult> GetTypePagination(
             [FromQuery] int page, 
             [FromQuery] int pageLength = 10,
-            [FromQuery] bool isNewestFirst = false)
+            [FromQuery] bool isNewestFirst = false, 
+            [FromQuery] bool sortAlphabetically = true)
             {
-                var result = await locationRepository.GetTypePaginationAsync(page, pageLength, isNewestFirst);
+                var result = await locationRepository.GetTypePaginationAsync(page, pageLength, isNewestFirst, sortAlphabetically);
 
                 if (result.ContainsKey("error"))
                 {
@@ -170,15 +172,15 @@ namespace LocationAPI.Controllers
         [Route("types")]
         public async Task<IActionResult> CreateType([FromBody] LocationType location)
         {
-            var id = await locationRepository.CreateTypeAsync(location);
+            var response = await locationRepository.CreateTypeAsync(location);
 
-            if (id.Count != 0)
+            if (response.ContainsKey("error"))
             {
-                return Ok(id);
+                return Ok(response);
             }
             else
             {
-                return BadRequest();
+                return BadRequest(response);
             }
         }
 
@@ -217,5 +219,25 @@ namespace LocationAPI.Controllers
                     return Ok(result);
                 }
             }
+
+        
+        [HttpGet]
+        [Route("export")]
+        public async Task<IActionResult> ExportLocations(
+            [FromQuery] int page,
+            [FromQuery] int pageLength = 10,
+            [FromQuery] bool isNewestFirst = false)
+        {
+            var result = await locationRepository.ExportLocationsAsync(page, pageLength, isNewestFirst);
+
+            if (result.ContainsKey("error"))
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return File(Encoding.UTF8.GetBytes((string)result["csv_data"]), "text/csv", "locations.csv");
+            }
+        }
     }
 }

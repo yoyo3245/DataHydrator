@@ -10,6 +10,7 @@ export class CreateTypeDisplayComponent{
   type: any;
   errorMessage: string | null = null; 
   name: string | null = null;
+  successMessage: string | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -24,16 +25,16 @@ export class CreateTypeDisplayComponent{
           this.type = response;
           console.log('POST request successful!', this.type);
           this.errorMessage = null; 
+          this.successMessage = `Location Type ID ${this.type.id} has been successfully Created.`;
         },
         (error: HttpErrorResponse) => {
-          if (error.status === 400) {
-            this.errorMessage = 'Please fill in field correctly.'; 
-          } else {
-            this.errorMessage = 'An Error Occurred'; 
-          }
-          this.type = null;
+          this.errorMessage = 'Please fill in field correctly.'; 
+          this.successMessage = null;
           console.error('Error:', error);
         }
       );
+
+
+      
   }
 }

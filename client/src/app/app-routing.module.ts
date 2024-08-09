@@ -14,15 +14,15 @@ import { DeleteTypeDisplayComponent } from './delete-type-display/delete-type-di
 const routes: Routes = [
   { path: 'locations', component: LocationsComponent }, 
   { path: 'types/delete', component: DeleteTypeDisplayComponent },
-  { path: 'delete', component: DeleteByIdDisplayComponent},
-  { path: '', redirectTo: '/hydrator', pathMatch: 'full' }, 
+  { path: 'locations/delete', component: DeleteByIdDisplayComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, 
   { path: 'types', component: LocationTypesDisplayComponent },
   { path: 'types/create', component: CreateTypeDisplayComponent },
   { path: 'types/get', component: GetTypeByIdComponent },
-  { path: 'get', component: GetByIdDisplayComponent}, 
-  { path: 'create', component: CreateLocationDisplayComponent},
-  { path: 'update', component: UpdateLocationDisplayComponent},
-  { path: 'hydrator', component: DataHydratorComponent}
+  { path: 'locations/get', component: GetByIdDisplayComponent}, 
+  { path: 'locations/create', component: CreateLocationDisplayComponent},
+  { path: 'locations/update', component: UpdateLocationDisplayComponent},
+  { path: 'home', component: DataHydratorComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

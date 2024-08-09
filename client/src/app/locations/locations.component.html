@@ -2,15 +2,21 @@
   <h2 class="custom-header">Current Locations</h2>
 </div>
 
-<button mat-stroked-button routerLink="/create"> Create </button>
-<button mat-stroked-button routerLink="/update" class="custom-margin"> Update </button>
-<button mat-stroked-button routerLink="/get" class="custom-margin"> Search </button>
-<button mat-stroked-button routerLink="/delete" class="custom-margin"> Delete </button>
+<button mat-stroked-button routerLink="/locations/create"> Create </button>
+<button mat-stroked-button routerLink="/locations/update" class="custom-margin"> Update </button>
+<button mat-stroked-button routerLink="/locations/get" class="custom-margin"> Search </button>
+<button mat-stroked-button routerLink="/locations/delete" class="custom-margin"> Delete </button>
 
-<button mat-button (click)="toggleSortOrder()" class="transparent-button">
-  <span class="button-text">{{ isNewestFirst ? 'Newest' : 'Oldest' }}</span>
-  <mat-icon class="button-icon">{{ isNewestFirst ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
-</button>
+<div class="button-container">
+  <button mat-button (click)="toggleSortOrder()" class="transparent-button">
+    <span class="button-text">{{ isNewestFirst ? 'Newest' : 'Oldest' }}</span>
+    <mat-icon class="button-icon">{{ isNewestFirst ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
+  </button>
+
+  <button mat-button (click)="exportData()" class="export-button">
+    <i class="bi bi-download"></i>
+  </button>
+</div>
 
 <div class="table-container">
 <table mat-table [dataSource]="dataSource" matSort class="custom-background">

@@ -10,8 +10,9 @@
         public Task<Dictionary<string, object>> GetPaginationAsync(int page, int page_length, bool isNewestFirst);
         public Task<List<Dictionary<string, object>>> GetAllLocationTypesAsync();
         public Task<Dictionary<string, object>> DeleteLocationTypeAsync(Guid id);
-        public Task<Dictionary<string, object>> GetTypePaginationAsync(int page, int pageLength, bool isNewestFirst);
-        public Task<Dictionary<string, Guid>> CreateTypeAsync(LocationType location);
+        public Task<Dictionary<string, object>> GetTypePaginationAsync(int page, int pageLength, bool isNewestFirst, bool sortAlphabetically);
+        public Task<Dictionary<string, object>> CreateTypeAsync(LocationType location);
         public Task<Dictionary<string, object>> GetLocationsByTypePaginationAsync(Guid id, int page, int pageLength, bool isNewestFirst);
+        public Task<Dictionary<string, object>> ExportLocationsAsync(int page, int pageLength, bool isNewestFirst);
     }
 }

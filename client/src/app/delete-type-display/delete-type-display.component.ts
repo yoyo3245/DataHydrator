@@ -1,37 +1,62 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 
+interface LocationResponse {
+  id?: string;
+  name?: string;
+  error?: string;
+}
+
 @Component({
   selector: 'app-delete-type-display',
   templateUrl: './delete-type-display.component.html',
   styleUrls: ['./delete-type-display.component.css']
 })
 export class DeleteTypeDisplayComponent {
-  id:String = '';
-  location: any;
-  errorMessage: String = '';
+  id: string = '';
+  location: LocationResponse | null = null;
+  message: string = '';
+  isError: boolean = false;
   
-  constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) {}
   
   deleteData() {
+    this.resetMessages();
+    this.id = this.id.trim();
+    
     if (this.id.length === 0) {
-      this.errorMessage = 'Bad Request';
+      this.setMessage('Bad Request', true);
       return; 
     }
-    else if (this.id == '39d802c5-4dfb-4773-9860-11207fc01ff8' || this.id == '871df559-4248-4fbd-b89e-827582ed656c') {
-      this.errorMessage = 'Cannot delete "Region" or "Site"';
-      return;
-    }
-    this.http.delete('http://localhost:5290/api/locations/types/' + this.id).subscribe({
-      next: (response: any) => {
-        this.location = response;
-        this.errorMessage = ''; // Clear error message on successful response
+    
+    this.http.delete<LocationResponse>('http://localhost:5290/api/locations/types/' + this.id, { observe: 'response' }).subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          const locationData = response.body as LocationResponse;
+          if (locationData.error) {
+            this.setMessage(locationData.error, true);
+          } else {
+            this.location = locationData;
+            this.setMessage(`Location type '${locationData.name}' (ID: ${locationData.id}) has been successfully deleted.`, false);
+          }
+        } else if (response.status === 404) {
+          this.setMessage('Location type not found', true);
+        }
       },
       error: (error: HttpErrorResponse) => {
-        this.errorMessage = 'Location Not Found';
-        this.location = null;
-        console.error('Error:', error);
+          this.setMessage('Location type not found', true);
       }
     });
+  }
+
+  private resetMessages() {
+    this.message = '';
+    this.isError = false;
+    this.location = null;
+  }
+
+  private setMessage(message: string, isError: boolean) {
+    this.message = message;
+    this.isError = isError;
   }
 }

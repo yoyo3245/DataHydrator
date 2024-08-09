@@ -13,6 +13,7 @@ export class LocationTypesDisplayComponent {
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
   isNewestFirst = false;
+  sortAlphabetically = false;
   currentPage = 1;
   pageSize = 10;
   totalPages = 1;
@@ -33,7 +34,7 @@ export class LocationTypesDisplayComponent {
   }
 
   loadData() {
-    const url = `http://localhost:5290/api/locations/types/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
+    const url = `http://localhost:5290/api/locations/types/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}&sortAlphabetically=${this.sortAlphabetically}`;
     
     this.http.get<any>(url).subscribe(
       (response) => {

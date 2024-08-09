@@ -1,20 +1,15 @@
-<div class="custom-header"> 
-    <h2>Enter a Valid Type ID to Delete</h2>
-
-    <div class="custom-bottom">
-        <mat-form-field class="custom-width">
-          <mat-label class="input-text">Enter ID</mat-label>
-          <input matInput [(ngModel)]="id">
-          <mat-hint>Cannot delete "Region" or "Site"</mat-hint>
-        </mat-form-field>
-      </div>
-    <button mat-stroked-button class="custom-outline submit-button" (click)="deleteData()">Submit</button>
+<div class="custom-header">
+  <h2>Enter a Valid Type ID to Delete</h2>
+  <div class="custom-bottom">
+    <mat-form-field class="custom-width">
+      <mat-label class="input-text">Enter ID</mat-label>
+      <input matInput [(ngModel)]="id">
+      <mat-hint>Cannot delete "Region" or "Site"</mat-hint>
+    </mat-form-field>
+  </div>
+  <button mat-stroked-button class="custom-outline submit-button" (click)="deleteData()">Submit</button>
 </div>
 
-<div *ngIf="errorMessage && !location" class="error-message">
-    <h2> {{ errorMessage }} </h2>
-</div>
-
-<div *ngIf="location" class="success-message">
-    <h2>Location ID {{location.id}} has been successfully deleted.</h2>
+<div *ngIf="message" [ngClass]="{'error-message': isError, 'success-message': !isError}">
+  <h2>{{ message }}</h2>
 </div>

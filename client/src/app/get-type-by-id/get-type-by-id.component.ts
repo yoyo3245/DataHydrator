@@ -24,16 +24,6 @@ export class GetTypeByIdComponent {
 
   constructor(private http: HttpClient) {}
 
-  // ngOnInit() {
-  //   this.loadData();
-  // }
-
-  ngAfterViewInit() {
-    this.paginator.page.subscribe((event: PageEvent) => {
-      this.onPageChange(event);
-    });
-  }
-
   loadData() {
     const url = `http://localhost:5290/api/locations/types/${this.id}/items?page=${this.currentPage}&pageLength=${this.pageSize}&isNewestFirst=${this.isNewestFirst}`;
     
@@ -45,9 +35,9 @@ export class GetTypeByIdComponent {
         this.calculatePageInfo();
         this.table = true;
       },
-      (error) => { 
-        this.errorMessage = "Location Type Not Found"; 
-        this.table = false
+      (error) => {
+        this.errorMessage = "Location Type Not Found";
+        this.table = false;
       }
     );
   }
