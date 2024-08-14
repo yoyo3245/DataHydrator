@@ -35,6 +35,7 @@ import { LocationTypesDisplayComponent } from './location-types-display/location
 import { CreateTypeDisplayComponent } from './create-type-display/create-type-display.component';
 import { GetTypeByIdComponent } from './get-type-by-id/get-type-by-id.component';
 import { DeleteTypeDisplayComponent } from './delete-type-display/delete-type-display.component';
+import { UploadDisplayComponent } from './upload-display/upload-display.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DeleteTypeDisplayComponent } from './delete-type-display/delete-type-di
     LocationTypesDisplayComponent,
     CreateTypeDisplayComponent,
     GetTypeByIdComponent,
-    DeleteTypeDisplayComponent
+    DeleteTypeDisplayComponent,
+    UploadDisplayComponent
   ],
   imports: [
     BrowserModule,

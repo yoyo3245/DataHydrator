@@ -1,0 +1,34 @@
+.custom-header {
+    margin-top: 30px;
+}
+
+.input-group {
+    margin-left: 27%;
+    max-width: 45%;
+  }
+
+.form-control{
+    background-color: transparent;
+  }
+
+  .error-message {
+    margin-top: 20px;
+    color: red;
+  }
+  
+  .success-message {
+    margin-top: 20px;
+    color: green;
+  }
+
+  .custom-margin {
+    margin-top: 10px;
+  }
+
+  table, th, td {
+    border: 2px solid #333;
+    border-collapse: collapse;
+    td {
+      padding: 5px; /* Space between text and borders */
+  }
+  }

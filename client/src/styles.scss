@@ -44,6 +44,31 @@ $my-theme-dark: mat.define-dark-theme((
   --mdc-filled-text-field-focus-active-indicator-color: darkgrey !important;
   --mat-option-selected-state-label-text-color: #7c7cff !important;
   --mat-select-focused-arrow-color: #7c7cff !important;
+  .form-control {
+    color: white;
+    border: var(--bs-border-width) solid #3c3c3c;
+}
+
+.custom-file-input::file-selector-button {
+    background-color: rgb(51, 51, 51); 
+    color: rgb(105, 105, 105); 
+    border: none; /* Remove default border */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.custom-file-input::file-selector-button:hover {
+    // background-color: rgb(70, 70, 70); /* Darker shade on hover */
+    color: white; /* Ensure text remains white */
+}
+
+/* Target the .custom-file-input class for input field hover */
+.custom-file-input:hover {
+    // background-color: rgb(51, 51, 51); 
+}
+
+.custom-file-input input[type="file"] {
+    display: none;
+}
   // --mat-option-label-text-color: white !important;
   @include mat.all-component-colors($my-theme-dark);
 }
@@ -55,6 +80,9 @@ $my-theme-dark: mat.define-dark-theme((
   --mdc-filled-text-field-focus-active-indicator-color: darkgrey !important;
   // --mat-select-focused-arrow-color: darkgrey !important;
   // --mat-option-label-text-color: white !important;
+  .form-control{
+    color: black;
+  }
   @include mat.all-component-colors($my-theme);
 }
 

@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTypeDisplayComponent{
   type: any;
-  errorMessage: string | null = null; 
+  errorMessage: string = ""; 
   name: string | null = null;
-  successMessage: string | null = null;
+  successMessage: string = "";
 
   constructor(private http: HttpClient) {}
 
@@ -24,12 +24,12 @@ export class CreateTypeDisplayComponent{
         response => {
           this.type = response;
           console.log('POST request successful!', this.type);
-          this.errorMessage = null; 
-          this.successMessage = `Location Type ID ${this.type.id} has been successfully Created.`;
+          this.errorMessage = ""; 
+          this.successMessage = `Location Type ID "${this.name}" has been successfully Created.`;
         },
         (error: HttpErrorResponse) => {
           this.errorMessage = 'Please fill in field correctly.'; 
-          this.successMessage = null;
+          this.successMessage = "";
           console.error('Error:', error);
         }
       );

@@ -13,11 +13,11 @@
       <button mat-stroked-button class="custom-outline custom-margin" (click)="createData()">Submit</button>
   </label>
    
-  <div *ngIf="errorMessage" class="error-message">
+  <div *ngIf="errorMessage.length > 0" class="error-message">
       <h2> {{ errorMessage }} </h2>
   </div>
   
-  <div *ngIf="successMessage" class="success-message">
-      <h2>Location Type ID {{type.id}} has been successfully Created.</h2>
+  <div *ngIf="successMessage.length > 0" class="success-message">
+      <h2> {{ successMessage }} </h2>
   </div>
   

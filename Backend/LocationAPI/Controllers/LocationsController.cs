@@ -176,11 +176,12 @@ namespace LocationAPI.Controllers
 
             if (response.ContainsKey("error"))
             {
-                return Ok(response);
+                return BadRequest(response);
             }
             else
             {
-                return BadRequest(response);
+                return Ok(response);
+                
             }
         }
 

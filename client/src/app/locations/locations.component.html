@@ -6,6 +6,7 @@
 <button mat-stroked-button routerLink="/locations/update" class="custom-margin"> Update </button>
 <button mat-stroked-button routerLink="/locations/get" class="custom-margin"> Search </button>
 <button mat-stroked-button routerLink="/locations/delete" class="custom-margin"> Delete </button>
+<button mat-stroked-button routerLink="/locations/upload" class="custom-margin"> Upload </button>
 
 <div class="button-container">
   <button mat-button (click)="toggleSortOrder()" class="transparent-button">
@@ -16,7 +17,10 @@
   <button mat-button (click)="exportData()" class="export-button">
     <i class="bi bi-download"></i>
   </button>
+
 </div>
+
+
 
 <div class="table-container">
 <table mat-table [dataSource]="dataSource" matSort class="custom-background">

@@ -1,0 +1,48 @@
+<div class="header-container">
+    <h2 class="custom-header">Upload valid file of location data</h2>
+
+    <div class="input-group">
+        <input type="file" class="form-control custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" (change)="onFileChange($event)">
+    </div>
+    <button mat-stroked-button (click)="processData()" class="custom-margin custom-outline"> Upload </button>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+    <h2> {{ errorMessage }} </h2>
+</div>
+
+<div *ngIf="successMessage" class="success-message">
+    <h2>{{successMessage}}</h2>
+</div>
+
+<div class="header-container">
+    <h2 class="custom-header">Example .XLSX/.CSV file formating:</h2>
+    <table style="margin-left: 23%;">
+        <tr>
+            <td>Location Code</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Inventory Location</td>
+            <td>Location Type ID</td>
+            <td>Parent ID</td>
+        </tr>
+        <tr>
+            <td>location test code</td>
+            <td>location test name</td>
+            <td>location test description</td>
+            <td>TRUE</td>
+            <td>(Valid type GUID)</td>
+            <td>(Valid GUID)</td>
+        </tr>
+        <tr>
+            <td>location test code 2</td>
+            <td>location test name 2</td>
+            <td>location test description 2</td>
+            <td>FALSE</td>
+            <td>(Valid type GUID)</td>
+            <td>(Valid GUID)</td>
+        </tr>
+    </table>
+</div>
+
+

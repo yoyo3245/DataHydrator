@@ -10,6 +10,7 @@ import { LocationTypesDisplayComponent } from './location-types-display/location
 import { CreateTypeDisplayComponent } from './create-type-display/create-type-display.component';
 import { GetTypeByIdComponent } from './get-type-by-id/get-type-by-id.component';
 import { DeleteTypeDisplayComponent } from './delete-type-display/delete-type-display.component';
+import { UploadDisplayComponent } from './upload-display/upload-display.component';
 
 const routes: Routes = [
   { path: 'locations', component: LocationsComponent }, 
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'locations/get', component: GetByIdDisplayComponent}, 
   { path: 'locations/create', component: CreateLocationDisplayComponent},
   { path: 'locations/update', component: UpdateLocationDisplayComponent},
+  { path: 'locations/upload', component: UploadDisplayComponent },
   { path: 'home', component: DataHydratorComponent}
 ];
 @NgModule({

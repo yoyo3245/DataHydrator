@@ -81,3 +81,9 @@
   .custom-margin {
     margin-left: 20px
   }
+
+  
+
+  .form-control {
+    background-color: transparent;
+  }
