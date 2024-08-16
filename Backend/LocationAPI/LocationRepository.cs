@@ -144,6 +144,14 @@ namespace LocationAPI
                     totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
                 }
 
+                if (totalCount == 0) {
+                    result["total_count"] = totalCount;
+                    result["page_data"] = locations;
+                    result["page"] = page;
+                    result["total_pages"] = 1;
+                    result["page_length"] = 0;
+                    return result;
+                }
                 // Define the sorting order based on isNewestFirst
                 string orderBy = isNewestFirst ? "ORDER BY created_at DESC" : "ORDER BY created_at ASC";
 

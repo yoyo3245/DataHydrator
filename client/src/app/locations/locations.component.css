@@ -82,8 +82,15 @@
     margin-left: 20px
   }
 
-  
-
   .form-control {
     background-color: transparent;
+  }
+
+  .custom-icon {
+    font-size: 115%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    height: 100%;
+    min-height: 70px;
   }

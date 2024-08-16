@@ -32,7 +32,7 @@ export class UploadDisplayComponent {
             continue; // Skip empty rows
         }
         if (this.data2DArray[r].includes("")) {
-          this.errorMessage = "Parsing error";
+          this.errorMessage = `Parsing error on row ${r + 1}`;
           this.successMessage = "";
           break;  
         }
@@ -54,7 +54,7 @@ export class UploadDisplayComponent {
             this.errorMessage = ""; 
         } catch (error) {
             const httpError = error as HttpErrorResponse;
-            this.errorMessage = "Parsing error";
+            this.errorMessage = `Parsing error on row ${r + 1}`;
             this.successMessage = "";
             break;  
         }
