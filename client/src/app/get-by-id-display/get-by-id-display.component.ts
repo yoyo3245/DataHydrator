@@ -10,9 +10,10 @@ import { MatTableDataSource } from '@angular/material/table';
 export class GetByIdDisplayComponent {
   displayedColumns: string[] = ['id', 'location_code', 'name', 'description', 'inventory_location', 'location_type', 'parent_id'];
   id: string = '';
-  location: any;
+  location: any = null;
   errorMessage: string = '';
   dataSource = new MatTableDataSource<any>([]);
+  type: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -24,9 +25,10 @@ export class GetByIdDisplayComponent {
     }
     this.http.get<any>('http://localhost:5290/api/locations/' + this.id).subscribe({
       next: (response: any) => {
+        
         this.location = response;
         this.dataSource.data = [response];
-        this.errorMessage = ''; 
+        this.errorMessage = '';
       },
       error: (error: HttpErrorResponse) => {
         this.errorMessage = 'Location Not Found';

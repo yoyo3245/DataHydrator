@@ -28,23 +28,31 @@ export class DeleteTypeDisplayComponent {
       this.setMessage('Bad Request', true);
       return; 
     }
+    var forbiddenId1 = "39d802c5-4dfb-4773-9860-11207fc01ff8";
+    var forbiddenId2 = "871df559-4248-4fbd-b89e-827582ed656c";
+
+    // if (this.id.trim() == forbiddenId1 || this.id.trim() == forbiddenId2) {
+    //   this.setMessage('Cannot Delete "Region" or "Site"', true);
+    //   return; 
+    // }
     
     this.http.delete<LocationResponse>('http://localhost:5290/api/locations/types/' + this.id, { observe: 'response' }).subscribe({
       next: (response) => {
-        if (response.status === 200) {
           const locationData = response.body as LocationResponse;
-          if (locationData.error) {
-            this.setMessage(locationData.error, true);
-          } else {
-            this.location = locationData;
-            this.setMessage(`Location type '${locationData.name}' (ID: ${locationData.id}) has been successfully deleted.`, false);
-          }
-        } else if (response.status === 404) {
-          this.setMessage('Location type not found', true);
-        }
+          this.location = locationData;
+          this.setMessage(`Location type '${locationData.name}' (ID: ${locationData.id}) has been successfully deleted.`, false);
+          
       },
       error: (error: HttpErrorResponse) => {
-          this.setMessage('Location type not found', true);
+          console.log(error.error.error);
+          if (error.error.error)
+          {
+            this.setMessage(error.error.error, true);
+          }
+          else 
+          {
+            this.setMessage('Location Type Not Found', true);
+          }
       }
     });
   }

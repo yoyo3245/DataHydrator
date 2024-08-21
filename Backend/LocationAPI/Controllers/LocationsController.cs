@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,10 +13,12 @@ namespace LocationAPI.Controllers
     public class LocationsController : ControllerBase
     {
         private readonly ILocationRepository locationRepository;
+        private readonly IApiLogRepository apiLogRepository;
 
-        public LocationsController(ILocationRepository locationRepository)
+        public LocationsController(ILocationRepository locationRepository, IApiLogRepository apiLogRepository)
         {
             this.locationRepository = locationRepository;
+            this.apiLogRepository = apiLogRepository;
         }
 
         [HttpPut]
@@ -23,12 +27,14 @@ namespace LocationAPI.Controllers
         {
             var location = await locationRepository.UpdateLocationAsync(id, updatedLocation);
 
-            if (location.Count != 0)
+            if (!location.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("PUT", $"/api/locations/{id}/", 200, location);
                 return Ok(location);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("PUT", $"/api/locations/{id}/", 404, location);
                 return NotFound();
             }
         }
@@ -39,12 +45,14 @@ namespace LocationAPI.Controllers
         {
             var location = await locationRepository.DeleteLocationAsync(id);
 
-            if (location.Count != 0)
+            if (!location.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("DELETE", $"/api/locations/{id}/", 200, location);
                 return Ok(location);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("DELETE", $"/api/locations/{id}/", 404, location);
                 return NotFound();
             }
         }
@@ -55,12 +63,14 @@ namespace LocationAPI.Controllers
         {
             var location = await locationRepository.DeleteLocationTypeAsync(id);
 
-            if (location.Count != 0)
+            if (!location.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("DELETE", $"/api/locations/types/{id}/", 200, location);
                 return Ok(location);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("DELETE", $"/api/locations/types/{id}/", 404, location);
                 return NotFound(location);
             }
         }
@@ -73,10 +83,12 @@ namespace LocationAPI.Controllers
             if (allLocations.Count != 0)
             {
                 var json = JsonSerializer.Serialize(allLocations);
+                await apiLogRepository.LogRequestAsync("GET", $"/api/locations/", 200, allLocations);
                 return Ok(json);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("GET", $"/api/locations/", 404, allLocations);
                 return NotFound();
             }
         }
@@ -90,10 +102,12 @@ namespace LocationAPI.Controllers
             if (allTypes.Count != 0)
             {
                 var json = JsonSerializer.Serialize(allTypes);
+                await apiLogRepository.LogRequestAsync("GET", $"/api/locations/types/", 200, allTypes);
                 return Ok(json);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("GET", $"/api/locations/types/", 404, allTypes);
                 return NotFound();
             }
         }
@@ -103,12 +117,14 @@ namespace LocationAPI.Controllers
         {
             var id = await locationRepository.CreateLocationAsync(location);
 
-            if (id.Count != 0)
+            if (!id.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("POST", $"/api/locations/", 200, id);
                 return Ok(id);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("POST", $"/api/locations/", 400, id);
                 return BadRequest();
             }
         }
@@ -119,12 +135,14 @@ namespace LocationAPI.Controllers
         {
             var location = await locationRepository.GetLocationAsync(id);
 
-            if (location.Count != 0)
+            if (!location.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("GET", $"/locations/api/{id}/", 200, location);
                 return Ok(location);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("GET", $"/locations/api/{id}/", 404, location);
                 return NotFound();
             }
         }
@@ -140,10 +158,12 @@ namespace LocationAPI.Controllers
 
             if (result.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("GET", $"/api/locations/items?page={page}&pageLength={pageLength}&isNewestFirst={isNewestFirst}/", 400, result);
                 return BadRequest(result);
             }
             else 
             {
+                await apiLogRepository.LogRequestAsync("GET", $"/api/locations/items?page={page}&pageLength={pageLength}&isNewestFirst={isNewestFirst}/", 200, result);
                 return Ok(result);
             }
         }
@@ -160,10 +180,12 @@ namespace LocationAPI.Controllers
 
                 if (result.ContainsKey("error"))
                 {
+                    await apiLogRepository.LogRequestAsync("GET", $"/api/locations/types/items?page={page}&pageLength={pageLength}&isNewestFirst={isNewestFirst}&sortAlphabetically={sortAlphabetically}/", 400, result);
                     return BadRequest(result);
                 }
                 else 
                 {
+                    await apiLogRepository.LogRequestAsync("GET", $"/api/locations/types/items?page={page}&pageLength={pageLength}&isNewestFirst={isNewestFirst}&sortAlphabetically={sortAlphabetically}/", 200, result);
                     return Ok(result);
                 }
             }
@@ -176,10 +198,12 @@ namespace LocationAPI.Controllers
 
             if (response.ContainsKey("error"))
             {
+                await apiLogRepository.LogRequestAsync("POST", $"/api/locations/types/", 400, response);
                 return BadRequest(response);
             }
             else
             {
+                await apiLogRepository.LogRequestAsync("POST", $"/api/locations/types/", 200, response);
                 return Ok(response);
                 
             }
@@ -213,10 +237,12 @@ namespace LocationAPI.Controllers
 
                 if (result.ContainsKey("error"))
                 {
+                    await apiLogRepository.LogRequestAsync("GET", $"/api/locations/types/{id}/item?page={page}&pageLength={pageLength}&isNewestFirst={isNewestFirst}/", 404, result);
                     return NotFound(result);
                 }
                 else 
                 {
+                    await apiLogRepository.LogRequestAsync("GET", $"/api/locations/types/{id}/item?page={page}&pageLength={pageLength}&isNewestFirst={isNewestFirst}/", 200, result);
                     return Ok(result);
                 }
             }

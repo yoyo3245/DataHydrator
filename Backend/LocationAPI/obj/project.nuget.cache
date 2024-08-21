@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "k/Fa9qDk1VU=",
+  "dgSpecHash": "gj6WhX8S1hk=",
   "success": true,
   "projectFilePath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationAPI.csproj",
   "expectedPackageFiles": [
@@ -55,7 +55,7 @@
     "C:\\Users\\z004yzvw\\.nuget\\packages\\microsoft.net.http.headers\\2.1.1\\microsoft.net.http.headers.2.1.1.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\z004yzvw\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\z004yzvw\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\npgsql\\8.0.3\\npgsql.8.0.3.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\z004yzvw\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",

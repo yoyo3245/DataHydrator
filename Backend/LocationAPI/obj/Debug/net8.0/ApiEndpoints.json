@@ -77,5 +77,161 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "ExportLocations",
+    "RelativePath": "api/Locations/export",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageLength",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isNewestFirst",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "GetPagination",
+    "RelativePath": "api/Locations/items",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageLength",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isNewestFirst",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "GetAllTypes",
+    "RelativePath": "api/Locations/types",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "CreateType",
+    "RelativePath": "api/Locations/types",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "location",
+        "Type": "LocationAPI.LocationType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "DeleteLocationType",
+    "RelativePath": "api/Locations/types/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "GetLocationsByTypePaginationAsync",
+    "RelativePath": "api/Locations/types/{id}/items",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageLength",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isNewestFirst",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LocationAPI.Controllers.LocationsController",
+    "Method": "GetTypePagination",
+    "RelativePath": "api/Locations/types/items",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageLength",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isNewestFirst",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortAlphabetically",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

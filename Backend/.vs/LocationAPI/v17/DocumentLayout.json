@@ -1,0 +1,163 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\locationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\controllers\\locationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\controllers\\locationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\ilocationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\z004yzvw\\AppData\\Local\\Temp\\.vsdbgsrc\\4f2ce4562e2d6d5cd8453d06568c38e962e9644b39b8e0fe779a6edd2d8fec2e\\LocationsController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\controllers\\apilogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\controllers\\apilogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\iapilogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\iapilogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\apilogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\apilogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|c:\\users\\z004yzvw\\desktop\\projects\\locationapp\\backend\\locationapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{612CFC22-5E45-4A38-A0CF-F1417CE33A17}|LocationAPI\\LocationAPI.csproj|solutionrelative:locationapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 303,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LocationsController.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\AppData\\Local\\Temp\\.vsdbgsrc\\4f2ce4562e2d6d5cd8453d06568c38e962e9644b39b8e0fe779a6edd2d8fec2e\\LocationsController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\4f2ce4562e2d6d5cd8453d06568c38e962e9644b39b8e0fe779a6edd2d8fec2e\\LocationsController.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\AppData\\Local\\Temp\\.vsdbgsrc\\4f2ce4562e2d6d5cd8453d06568c38e962e9644b39b8e0fe779a6edd2d8fec2e\\LocationsController.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\4f2ce4562e2d6d5cd8453d06568c38e962e9644b39b8e0fe779a6edd2d8fec2e\\LocationsController.cs [Read Only]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T14:27:51.639Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Location.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Location.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\Location.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Location.cs",
+              "RelativeToolTip": "LocationAPI\\Location.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T13:42:48.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ILocationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\ILocationRepository.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\ILocationRepository.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\ILocationRepository.cs",
+              "RelativeToolTip": "LocationAPI\\ILocationRepository.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T12:43:23.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Program.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Program.cs",
+              "RelativeToolTip": "LocationAPI\\Program.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T14:03:12.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LocationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationRepository.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\LocationRepository.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\LocationRepository.cs",
+              "RelativeToolTip": "LocationAPI\\LocationRepository.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T12:49:09.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApiLogRepository.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\ApiLogRepository.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\ApiLogRepository.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\ApiLogRepository.cs",
+              "RelativeToolTip": "LocationAPI\\ApiLogRepository.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T12:43:05.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IApiLogRepository.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\IApiLogRepository.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\IApiLogRepository.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\IApiLogRepository.cs",
+              "RelativeToolTip": "LocationAPI\\IApiLogRepository.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T12:42:21.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApiLogController.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Controllers\\ApiLogController.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\Controllers\\ApiLogController.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Controllers\\ApiLogController.cs",
+              "RelativeToolTip": "LocationAPI\\Controllers\\ApiLogController.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T12:36:24.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LocationsController.cs",
+              "DocumentMoniker": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Controllers\\LocationsController.cs",
+              "RelativeDocumentMoniker": "LocationAPI\\Controllers\\LocationsController.cs",
+              "ToolTip": "C:\\Users\\z004yzvw\\Desktop\\projects\\LocationApp\\backend\\LocationAPI\\Controllers\\LocationsController.cs",
+              "RelativeToolTip": "LocationAPI\\Controllers\\LocationsController.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-19T12:36:33.11Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

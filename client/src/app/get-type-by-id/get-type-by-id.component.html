@@ -47,7 +47,14 @@
       <!-- Inventory Location Column -->
       <ng-container matColumnDef="inventory_location">
         <th mat-header-cell *matHeaderCellDef> Inventory Location </th>
-        <td mat-cell *matCellDef="let location"> {{ location.inventory_location }} </td>
+        <td class="custom-icon" mat-cell *matCellDef="let location">
+          <ng-container *ngIf="location.inventory_location; else noLocation">
+            <i class="bi bi-check-circle"></i>
+          </ng-container>
+          <ng-template #noLocation>
+            <i class="bi bi-x-circle"></i>
+          </ng-template>
+        </td>
       </ng-container>
   
       <!-- Type Column -->

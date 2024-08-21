@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 using Npgsql;
 
 namespace LocationAPI
@@ -18,7 +19,7 @@ namespace LocationAPI
 
             if (locationCheck.Count == 0 || updatedLocation == null)
             {
-                return new Dictionary<string, object>();
+                return new Dictionary<string, object> { { "error", "Bad Request" } };
             }
 
             string[] columnName = { "location_code", "_name", "description", "location_type_id", "inventory_location", "parent_id" };
@@ -71,7 +72,7 @@ namespace LocationAPI
                 }
                 else
                 {
-                    return new Dictionary<string, object>(); 
+                    return new Dictionary<string, object> { { "error", "Bad Request" } };
                 }
                 
             }
@@ -80,7 +81,7 @@ namespace LocationAPI
         {
             if (id == Guid.Empty || id == null)
             {
-                return new Dictionary<string, object>();
+                return new Dictionary<string, object> { { "error", "Not Found" } };
             }
             NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
             await connection.OpenAsync();
@@ -111,7 +112,7 @@ namespace LocationAPI
                     }
                 else
                 {
-                    return new Dictionary<string, object>();
+                    return new Dictionary<string, object> { { "error", "Bad Request" } };
                 }
             }
             
@@ -240,12 +241,49 @@ namespace LocationAPI
             return allLocations;
         }
 
-        public async Task<Dictionary<string, Guid>> CreateLocationAsync(Location location)
+        private Dictionary<string, string> ValidateLocation(Location location)
         {
+            var errors = new Dictionary<string, string>();
+
             if (location == null)
             {
-                return new Dictionary<string, Guid>();
+                errors["Location"] = "Location cannot be null.";
+                return errors;
             }
+
+            if (string.IsNullOrWhiteSpace(location.LocationCode))
+            {
+                errors["LocationCode"] = "Location code is required.";
+            }
+
+            if (string.IsNullOrWhiteSpace(location.Name))
+            {
+                errors["Name"] = "Name is required.";
+            }
+
+            if (string.IsNullOrWhiteSpace(location.LocationId) && !Guid.TryParse(location.LocationId, out _))
+            {
+                errors["LocationId"] = "Invalid Location ID format.";
+            }
+
+            if (string.IsNullOrWhiteSpace(location.ParentId) && !Guid.TryParse(location.ParentId, out _))
+            {
+                errors["ParentId"] = "Invalid Parent ID format.";
+            }
+
+            // You can add more validations as needed
+
+            return errors;
+        }
+
+        public async Task<Dictionary<string, object>> CreateLocationAsync(Location location)
+        {
+            if (ValidateLocation(location).Count > 0)
+            {
+                return new Dictionary<string, object> { { "error", "Bad Request" } };
+            }
+            var LocationId = Guid.Parse(location.LocationId);
+            var ParentId = Guid.Parse(location.ParentId);
 
             NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
             await connection.OpenAsync();
@@ -257,21 +295,21 @@ namespace LocationAPI
             command.Parameters.AddWithValue("@value1", location.LocationCode);
             command.Parameters.AddWithValue("@value2", location.Name);
             command.Parameters.AddWithValue("@value3", location.Description);
-            command.Parameters.AddWithValue("@value4", location.LocationId);
+            command.Parameters.AddWithValue("@value4", LocationId);
             command.Parameters.AddWithValue("@value5", location.InventoryLocation);
-            command.Parameters.AddWithValue("@value6", location.ParentId);
+            command.Parameters.AddWithValue("@value6", ParentId);
 
             Guid guidId = (Guid)await command.ExecuteScalarAsync();
             connection.Close();
 
-            return new Dictionary<string, Guid> { { "id", guidId } };
+            return new Dictionary<string, object> { { "id", guidId } };
         }
 
         public async Task<Dictionary<string, object>> GetLocationAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
-                return new Dictionary<string, object>();
+                return new Dictionary<string, object> { { "error", "Not Found" } };
             }
             
             Dictionary<string, object> location;
@@ -279,8 +317,23 @@ namespace LocationAPI
             var connection = _connectionFactory.CreateConnection(connectionString);
             await connection.OpenAsync();
 
-            var cmdSelect = new NpgsqlCommand("SELECT * FROM locations WHERE id = @id", connection);
-            cmdSelect.Parameters.AddWithValue("id", id);
+            var cmdCount = new NpgsqlCommand("SELECT COUNT(*) FROM locations where id = @id", connection);
+            cmdCount.Parameters.AddWithValue("id", id);
+            var totalCount = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
+
+            if (totalCount == 0)
+            {
+                return new Dictionary<string, object> { { "error", "Not Found" } };
+            }
+
+            var query = $@"
+                SELECT l.id, l.location_code, l._name, l.description, lt.name AS location_type, l.inventory_location, l.parent_id 
+                FROM locations l
+                LEFT JOIN location_types lt ON l.location_type_id = lt.id
+                WHERE l.id = @id";
+
+            var cmdSelect = new NpgsqlCommand(query, connection);
+                cmdSelect.Parameters.AddWithValue("id", id);
 
             using (var reader = await cmdSelect.ExecuteReaderAsync())
             {
@@ -293,14 +346,14 @@ namespace LocationAPI
                         { "name", reader["_name"] },
                         { "description", reader["description"] },
                         { "inventory_location", reader["inventory_location"] },
-                        { "location_type_id", reader["location_type_id"] },
+                        { "location_type", reader["location_type"] },
                         { "parent_id", reader["parent_id"] }
                     };
                     return location;
                 }
                 else
                 {
-                    return new Dictionary<string, object>();
+                    return new Dictionary<string, object> { { "error", "Not Found" } };
                 }
             }
             
@@ -338,8 +391,7 @@ namespace LocationAPI
 
             if (id == Guid.Empty || id == null)
             {
-                location["error"] = "Invalid ID";
-                return location;
+                return new Dictionary<string, object> { { "error", "Location Type Not Found" } };
             }
 
             else if (id == forbiddenId1 || id == forbiddenId2) 
@@ -380,7 +432,7 @@ namespace LocationAPI
                     }
                 else
                 {
-                    return new Dictionary<string, object>();
+                    return new Dictionary<string, object> { { "error", "Location Type Not Found" } };
                 }
             }
             
@@ -487,8 +539,7 @@ namespace LocationAPI
             var result = new Dictionary<string, object>();
             if (location == null)
             {
-                result["error"] = "Invalid ID";
-                return result;
+                return new Dictionary<string, object> { { "error", "Bad Request" } };
             }
 
             // Ensure connection is properly disposed by using 'using' statement
@@ -528,7 +579,7 @@ namespace LocationAPI
         {
             if (id == Guid.Empty || id == null)
             {
-                return new Dictionary<string, object>();
+                return new Dictionary<string, object> { { "error", "Not Found" } };
             }
 
             NpgsqlConnection connection = _connectionFactory.CreateConnection(connectionString);
@@ -553,8 +604,7 @@ namespace LocationAPI
 
             if (id == Guid.Empty)
             {
-                result["error"] = "Invalid ID";
-                return result;
+                return new Dictionary<string, object> { { "error", "Not Found" } };
             }
 
             if (page_length > 100)
